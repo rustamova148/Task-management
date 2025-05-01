@@ -11,10 +11,10 @@ const Header = ({boards}) => {
         <p className='text-[white] text-[28px] font-semibold hidden lg:block'>Platform Launch</p>
         <div className='flex items-center gap-[18px]'>
         <div className={`flex items-center gap-[18px] ${boards.length === 0 ? 'hidden': 'block'}`}>
-        <button className="ant-btn bg-[#6660C3] h-[45px] text-[white] flex items-center px-[10px]
-          justify-center gap-[8px] font-semibold rounded-[8px] cursor-pointer custom-shadow2">
+        <button className="ant-btn bg-[#6660C3] h-[45px] text-[white] flex items-center px-[15px]
+        lg:px-[10px] justify-center gap-[8px] font-semibold rounded-[8px] cursor-pointer custom-shadow2">
           <i className="fa-solid fa-plus"></i>
-          <span>Add New Task</span>
+          <p className='hidden lg:block'>Add New Task</p>
         </button>
         <button className='thp-btn flex items-center justify-center cursor-pointer'>
           <i className="fa-solid fa-ellipsis-vertical text-[#6660C3] text-[31px]"></i>

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Main from "./Main";
 
 const Sidebar = ({handleShowCnb,boards}) => {
   const [checked, setChecked] = useState(true);
@@ -18,7 +19,7 @@ const Sidebar = ({handleShowCnb,boards}) => {
   }
 
   return (
-    <div className={`${isVisible ? '' : 'flex items-end'} min-h-[calc(100vh-95px)]`}>
+    <div className={`${isVisible ? '' : 'flex items-end'} min-h-[calc(100vh-95px)] flex`}>
       {isVisible ? (
         <aside
           className="bg-[#2C2C37] w-[60%] sm:w-[40%] lg:w-[20%] min-h-[calc(100vh-95px)] flex 
@@ -90,6 +91,7 @@ const Sidebar = ({handleShowCnb,boards}) => {
           <i className="fa-solid fa-eye"></i>
         </button>
       )}
+      <Main activeBoardId={activeBoardId} boards={boards} />
     </div>
   );
 };
