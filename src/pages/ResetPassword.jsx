@@ -7,12 +7,12 @@ const ResetPassword = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#21212C]">
       <div
-        className="reg-container flex justify-center lg:justify-between items-center
+        className="rp-container flex justify-center lg:justify-between items-center
        w-[100%] lg:w-[85%] my-[20px]"
       >
         <div
-          className="reg-box border bg-[#2C2C37] border-none min-h-[400px] w-[80%] sm:w-[70%] md:w-[60%] lg:w-[40%]
-        rounded-[6px] py-[35px] px-[25px] lg:px-[20px]"
+          className="rp-box border bg-[#2C2C37] border-none min-h-[400px] w-[80%] sm:w-[70%] md:w-[60%] lg:w-[40%]
+        rounded-[6px] py-[30px] px-[25px] lg:px-[20px]"
         >
           <div className="logo flex items-center gap-[10px] h-[30px] mb-[30px]">
             <img src={logo} className="w-[25px] h-[30px]" alt="logo" />
@@ -34,11 +34,14 @@ const ResetPassword = () => {
           Enter your email and we'll send you instructions to reset your password
           </p>
           <form className="w-[95%] flex flex-col gap-[25px] mt-[30px] relative">
-            <input type="email" placeholder="Email" autocomplete="off" className="border-2 border-[#6660C3] 
-            rounded-[10px] py-[15px] px-[10px] outline-none text-[#6660C3]" />
+            <div className="flex flex-col gap-[5px]">
+            <label htmlFor="emailrp" className="text-[#6660C3]">Email</label>
+            <input type="email" placeholder="example@gmail.com" id="emailrp" autocomplete="off" className="border-2 border-[#6660C3] 
+            rounded-[10px] py-[13px] px-[10px] outline-none text-[#6660C3] text-[20px]" />
+            </div>
           </form>
-          <button className="bg-[#6660C3] w-[98%] rounded-[8px] py-[10px] px-[20px]
-          mt-[40px] text-[white] font-semibold cursor-pointer custom-shadow">
+          <button className="bg-[#6660C3] w-[98%] rounded-[8px] py-[10px] px-[20px] mt-[40px]
+          text-[white] font-semibold cursor-pointer custom-shadow">
             Send Reset Link
           </button>
           <div className="mt-[40px] flex items-center justify-center gap-[10px]">

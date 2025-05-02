@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import loginimg from "../assets/login-image.svg";
 import logo from "../assets/logo.svg";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 
 const Login = () => {
 const [visibilityp, setVisibilityp] = useState(true);
+const [email, setEmail] = useState("test@kanban.com");
+const [password, setPassword] = useState("12345678Aa");
+const navigate = useNavigate();
 
 const handleVisibility = (e) => {
 e.preventDefault();
@@ -14,6 +17,15 @@ e.preventDefault();
     setVisibilityp(true);
   }
 }
+
+const handleSubmit = (e) => {
+e.preventDefault();
+
+localStorage.setItem("Email", email);
+localStorage.setItem("Password", password);
+
+navigate('/dashboard');
+}
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#21212C]">
       <div
@@ -22,7 +34,7 @@ e.preventDefault();
       >
         <div
           className="login-box border bg-[#2C2C37] border-none w-[85%] sm:w-[70%] md:w-[60%] lg:w-[48%] min-h-[750px] 
-        rounded-[6px] py-[35px] px-[25px] lg:px-[20px]"
+        rounded-[6px] py-[35px] px-[25px] lg:px-[35px]"
         >
           <div className="logo flex items-center gap-[10px] h-[30px] mb-[30px]">
             <img src={logo} className="w-[25px] h-[30px]" alt="logo" />
@@ -40,21 +52,32 @@ e.preventDefault();
           <p className="text-[#6660C3] text-[14px] md:text-[16px] lg:text-[16px]">
             Please sign-in to your account and start the adventure
           </p>
-          <form className="w-[95%] flex flex-col gap-[25px] mt-[30px] relative">
-            <input type="email" placeholder="Email" autocomplete="off" className="border-2 border-[#6660C3] 
-            rounded-[10px] py-[15px] px-[10px] outline-none text-[#6660C3]" />
-            <input type={visibilityp ? "password" : "text"} placeholder="Password" className="border-2 border-[#6660C3] 
-            rounded-[10px] py-[15px] px-[10px] outline-none text-[#6660C3]" />
-            <button className="absolute right-[20px] top-[100px] cursor-pointer"
+          <form className="w-[100%] flex flex-col gap-[25px] mt-[30px] relative" 
+          onSubmit={handleSubmit}>
+            <div className="flex flex-col gap-[5px]">
+            <label htmlFor="emaill" className="text-[#6660C3]">Email</label>
+            <input type="email" id="emaill" autocomplete="off" className="border-2 border-[#6660C3] 
+            rounded-[10px] py-[13px] px-[10px] outline-none text-[#6660C3] text-[20px]" 
+            value={email} onChange={(e) => setEmail(e.target.value)}/>
+            </div>
+            <div className="flex flex-col gap-[5px]">
+            <label htmlFor="passwordl" className="text-[#6660C3]">Password</label>
+            <input type={visibilityp ? "password" : "text"} id="passwordl" className="border-2 border-[#6660C3] 
+            rounded-[10px] py-[13px] px-[10px] outline-none text-[#6660C3] text-[20px]" 
+            value={password} onChange={(e) => setPassword(e.target.value)} />
+            </div>
+            <button className="absolute right-[20px] top-[161px] cursor-pointer"
             onClick={(e) => handleVisibility(e)}>
             <i className={`fa-solid text-[#6660C3] ${visibilityp ? 'fa-eye' : 'fa-eye-slash'}`}></i>
             </button>
-          </form>
           <Link to="/reset-password">
-            <p className="text-[#6660C3] text-[14px] md:text-[17px] lg:text-[17px] mt-[25px]">Forgot Password?</p>
+            <p className="text-[#6660C3] text-[14px] md:text-[17px] lg:text-[17px]">Forgot Password?</p>
           </Link>
-          <button className="bg-[#6660C3] w-[98%] rounded-[8px] py-[10px] px-[20px]
-          mt-[60px] text-[white] font-semibold cursor-pointer custom-shadow">LOGIN</button>
+          <button type="submit" className="bg-[#6660C3] w-[100%] rounded-[8px] py-[10px] px-[20px]
+          mt-[25px] text-[white] font-semibold cursor-pointer custom-shadow">
+            LOGIN
+          </button>
+          </form>
           <div className="mt-[58px] flex items-center justify-center gap-[15px]">
             <span className="text-[white]">New on our platform? </span>
             <Link to='/register'>

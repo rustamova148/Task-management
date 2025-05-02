@@ -1,7 +1,21 @@
-import React from 'react'
+import React, { useState } from 'react'
 import logo from '../assets/logo.svg'
+import { useNavigate } from 'react-router'
 
 const Header = ({boards}) => {
+const navigate = useNavigate();
+const [prfToggle, setPrfToggle] = useState(false);
+
+const handleLogout = () => {
+  localStorage.removeItem("Email");
+  localStorage.removeItem("Password");
+  navigate('/login');
+}
+
+const handleProfileBox = () => {
+setPrfToggle(prevState => !prevState);
+}
+
   return (
     <header className='w-full min-h-[95px] bg-[#2C2C37] flex items-center justify-between px-[15px]'>
         <div className='flex items-center gap-[11px]'>
@@ -20,9 +34,20 @@ const Header = ({boards}) => {
           <i className="fa-solid fa-ellipsis-vertical text-[#6660C3] text-[31px]"></i>
         </button>
         </div>
-        <div className='border border-[#6660C3] w-[50px] h-[50px] rounded-[100%] flex justify-center 
-        items-center text-[22px] text-[#6660C3] profile-btn cursor-pointer'>
+        <div className='profile-btn relative border border-[#6660C3] w-[50px] h-[50px] rounded-[100%] flex justify-center 
+        items-center text-[22px] text-[#6660C3] cursor-pointer' onClick={handleProfileBox}>
             NR
+        </div>
+        <div className={`prfbox w-[250px] h-[180px] bg-[#2C2C37] prf-btn-box border border-[#6660C3]
+        rounded-[10px] p-[15px] text-[#6660C3] absolute right-[25px] top-[105px] flex flex-col items-center
+        justify-between ${prfToggle ? 'block' : 'hidden'}`} 
+        onClick={handleProfileBox}>
+          <p className='text-[20px]'>Username</p>
+          <ul className='w-full flex flex-col items-start gap-[10px] text-[18px]'>
+            <li>Settings</li>
+            <li>Info</li>
+            <li onClick={handleLogout} className='cursor-pointer'>Logout</li>
+          </ul>
         </div>
         </div>
     </header>

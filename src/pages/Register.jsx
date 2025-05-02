@@ -18,11 +18,11 @@ e.preventDefault();
     <div className="min-h-screen flex items-center justify-center bg-[#21212C]">
       <div
         className="reg-container flex justify-center lg:justify-between items-center
-       w-[100%] lg:w-[85%] my-[20px]"
+       w-[100%] lg:w-[80%] my-[20px]"
       >
         <div
-          className="reg-box border bg-[#2C2C37] border-none w-[85%] sm:w-[70%] md:w-[60%] lg:w-[45%] min-h-[750px] 
-        rounded-[6px] py-[35px] px-[25px] lg:px-[20px]"
+          className="reg-box border bg-[#2C2C37] border-none w-[85%] sm:w-[70%] md:w-[60%] lg:w-[48%] min-h-[750px] 
+        rounded-[6px] py-[35px] px-[25px] lg:px-[35px]"
         >
           <div className="logo flex items-center gap-[10px] h-[30px] mb-[30px]">
             <img src={logo} className="w-[25px] h-[30px]" alt="logo" />
@@ -40,20 +40,29 @@ e.preventDefault();
           <p className="text-[#6660C3] text-[14px] md:text-[16px] lg:text-[16px]">
             Make your app management easy and fun!
           </p>
-          <form className="w-[95%] flex flex-col gap-[25px] mt-[30px] relative">
-            <input type="text" placeholder="Fullname" className="border-2 border-[#6660C3] 
-            rounded-[10px] py-[15px] px-[10px] outline-none text-[#6660C3]" />
-            <input type="email" placeholder="Email" autocomplete="off" className="border-2 border-[#6660C3] 
-            rounded-[10px] py-[15px] px-[10px] outline-none text-[#6660C3]" />
-            <input type={visibilityp ? "password" : "text"} placeholder="Password" className="border-2 border-[#6660C3] 
-            rounded-[10px] py-[15px] px-[10px] outline-none text-[#6660C3]" />
-            <button className="absolute right-[20px] top-[183px] cursor-pointer"
+          <form className="w-[100%] flex flex-col gap-[25px] mt-[30px] relative">
+            <div className="flex flex-col gap-[5px]">
+            <label htmlFor="fulln" className="text-[#6660C3]">Fullname</label>
+            <input type="text" placeholder="Jason Ryan" className="border-2 border-[#6660C3] 
+            rounded-[10px] py-[13px] px-[10px] outline-none text-[#6660C3] text-[20px]" />
+            </div>
+            <div className="flex flex-col gap-[5px]">
+            <label htmlFor="emailr" className="text-[#6660C3]">Email</label>
+            <input type="email" id="emailr" placeholder="example@gmail.com" autocomplete="off" className="border-2 border-[#6660C3] 
+            rounded-[10px] py-[13px] px-[10px] outline-none text-[#6660C3] text-[20px]" />
+            </div>
+            <div className="flex flex-col gap-[5px]">
+            <label htmlFor="passwr" className="text-[#6660C3]">Password</label>
+            <input type={visibilityp ? "password" : "text"} id="passwr" placeholder="123Yjk@Ulw#" className="border-2 border-[#6660C3] 
+            rounded-[10px] py-[13px] px-[10px] outline-none text-[#6660C3] text-[20px]" />
+            </div>
+            <button className="absolute right-[20px] top-[275px] cursor-pointer"
             onClick={(e) => handleVisibility(e)}>
             <i className={`fa-solid text-[#6660C3] ${visibilityp ? 'fa-eye' : 'fa-eye-slash'}`}></i>
             </button>
+          <button className="bg-[#6660C3] w-[100%] rounded-[8px] py-[10px] px-[20px]
+          mt-[35px] text-[white] cursor-pointer custom-shadow" style={{fontWeight: "600"}}>Sign Up</button>
           </form>
-          <button className="bg-[#6660C3] w-[98%] rounded-[8px] py-[10px] px-[20px]
-          mt-[70px] text-[white] cursor-pointer custom-shadow" style={{fontWeight: "600"}}>Sign Up</button>
           <div className="mt-[58px] flex items-center justify-center gap-[15px]">
             <span className="text-[white]">Already have an account?</span>
             <Link to='/login'>
