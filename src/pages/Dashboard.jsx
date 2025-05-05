@@ -7,6 +7,7 @@ const Dashboard = () => {
   const [boards, setBoards] = useState([]);
   const [boardName, setBoardName] = useState("");
   const [boardId, setBoardId] = useState(1);
+  
 
   const handleShowCnb = () => {
     setCnb(true);
@@ -29,13 +30,18 @@ const Dashboard = () => {
     const newBoard = {
       id: boardId,
       board: boardName,
+      columns : [
+        {name: "Todo", tasks: []},
+        {name: "Doing", tasks: []},
+        {name: "Done", tasks: []}
+      ]
     };
     setBoards((prevBoards) => [...prevBoards, newBoard]);
     setBoardName("");
     setBoardId(boardId + 1);
     setCnb(false);
   };
-
+  
   return (
     <div className="bg-[#21212C] min-h-screen relative">
       <Header boards={boards}/>

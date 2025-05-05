@@ -91,7 +91,7 @@ const Sidebar = ({handleShowCnb,boards}) => {
           <i className="fa-solid fa-eye"></i>
         </button>
       )}
-      <Main activeBoardId={activeBoardId} boards={boards} />
+      <Main activeBoardId={activeBoardId} boards={boards} isVisible={isVisible} />
     </div>
   );
 };

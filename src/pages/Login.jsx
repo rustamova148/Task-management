@@ -61,8 +61,8 @@ navigate('/dashboard');
             value={email} onChange={(e) => setEmail(e.target.value)}/>
             </div>
             <div className="flex flex-col gap-[5px]">
-            <label htmlFor="passwordl" className="text-[#6660C3]">Password</label>
-            <input type={visibilityp ? "password" : "text"} id="passwordl" className="border-2 border-[#6660C3] 
+            <label htmlFor="passwl" className="text-[#6660C3]">Password</label>
+            <input type={visibilityp ? "password" : "text"} id="passl" className="border-2 border-[#6660C3] 
             rounded-[10px] py-[13px] px-[10px] outline-none text-[#6660C3] text-[20px]" 
             value={password} onChange={(e) => setPassword(e.target.value)} />
             </div>

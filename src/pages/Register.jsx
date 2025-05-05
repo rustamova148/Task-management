@@ -43,18 +43,18 @@ e.preventDefault();
           <form className="w-[100%] flex flex-col gap-[25px] mt-[30px] relative">
             <div className="flex flex-col gap-[5px]">
             <label htmlFor="fulln" className="text-[#6660C3]">Fullname</label>
-            <input type="text" placeholder="Jason Ryan" className="border-2 border-[#6660C3] 
+            <input type="text" id="fulln" placeholder="Jason Ryan" className="border-2 border-[#6660C3] 
             rounded-[10px] py-[13px] px-[10px] outline-none text-[#6660C3] text-[20px]" />
             </div>
             <div className="flex flex-col gap-[5px]">
             <label htmlFor="emailr" className="text-[#6660C3]">Email</label>
             <input type="email" id="emailr" placeholder="example@gmail.com" autocomplete="off" className="border-2 border-[#6660C3] 
-            rounded-[10px] py-[13px] px-[10px] outline-none text-[#6660C3] text-[20px]" />
+            rounded-[10px] py-[13px] px-[10px] outline-none text-[#6660C3] text-[20px]" value=""/>
             </div>
             <div className="flex flex-col gap-[5px]">
             <label htmlFor="passwr" className="text-[#6660C3]">Password</label>
             <input type={visibilityp ? "password" : "text"} id="passwr" placeholder="123Yjk@Ulw#" className="border-2 border-[#6660C3] 
-            rounded-[10px] py-[13px] px-[10px] outline-none text-[#6660C3] text-[20px]" />
+            rounded-[10px] py-[13px] px-[10px] outline-none text-[#6660C3] text-[20px]" value=""/>
             </div>
             <button className="absolute right-[20px] top-[275px] cursor-pointer"
             onClick={(e) => handleVisibility(e)}>
