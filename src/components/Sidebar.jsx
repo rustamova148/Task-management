@@ -22,7 +22,7 @@ const Sidebar = ({handleShowCnb,boards}) => {
     <div className={`${isVisible ? '' : 'flex items-end'} min-h-[calc(100vh-95px)] flex`}>
       {isVisible ? (
         <aside
-          className="bg-[#2C2C37] w-[60%] sm:w-[40%] lg:w-[20%] min-h-[calc(100vh-95px)] flex 
+          className="bg-[#2C2C37] w-[90%] sm:w-[60%] md:w-[43%] lg:w-[27%] min-h-[calc(100vh-95px)] flex 
           flex-col justify-between py-[10px] ps-[19px]"
         >
           <div className="flex flex-col gap-[24px]">
