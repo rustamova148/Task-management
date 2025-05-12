@@ -22,8 +22,8 @@ const Sidebar = ({handleShowCnb,boards}) => {
     <div className={`${isVisible ? '' : 'flex items-end'} min-h-[calc(100vh-95px)] flex`}>
       {isVisible ? (
         <aside
-          className="bg-[#2C2C37] w-[90%] sm:w-[60%] md:w-[43%] lg:w-[27%] min-h-[calc(100vh-95px)] flex 
-          flex-col justify-between py-[10px] ps-[19px]"
+          className="bg-[#2C2C37] w-[100%] sm:w-[50%] md:w-[43%] lg:w-[25%] min-h-[calc(100vh-95px)] flex 
+          flex-col justify-between py-[10px] ps-[19px] z-30"
         >
           <div className="flex flex-col gap-[24px]">
           <p className="text-[#828FA2] font-semibold">ALL BOARDS ({boards.length})</p>
@@ -40,8 +40,9 @@ const Sidebar = ({handleShowCnb,boards}) => {
             ))}
           </div>
           <button onClick={handleShowCnb}
-            className="bg-[white] w-[88%] h-[45px] text-[#6660C3] flex items-center
-            justify-center gap-[8px] font-semibold rounded-[8px] cursor-pointer custom-shadow2"
+            className="bg-[white] w-[88%] h-[45px] text-[#6660C3] flex items-center px-[5px]
+            justify-center gap-[8px] font-semibold rounded-[8px] text-[14px] sm:text-[16px] md:text-[16px] 
+            lg:text-[16px] cursor-pointer custom-shadow2"
           >
             <i className="fa-solid fa-plus"></i>
             <span>Create New Board</span>
@@ -77,7 +78,9 @@ const Sidebar = ({handleShowCnb,boards}) => {
               onClick={handleVisibility}
             >
               <i className="fa-solid fa-eye-slash"></i>
-              <span className="font-medium">Hide Sidebar</span>
+              <span className="font-medium text-[14px] sm:text-[16px] md:text-[16px] lg:text-[16px]">
+              Hide Sidebar
+              </span>
             </button>
           </div>
         </aside>
@@ -85,7 +88,7 @@ const Sidebar = ({handleShowCnb,boards}) => {
         <button
           className="cursor-pointer bg-[#2C2C37] show-btn text-[white] mb-[30px]
       w-[56px] h-[45px] rounded-r-full hover:bg-[white] transition-all duration-500
-      hover:text-[#6660C3]"
+      hover:text-[#6660C3] z-50"
           onClick={handleVisibility}
         >
           <i className="fa-solid fa-eye"></i>

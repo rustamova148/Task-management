@@ -47,7 +47,7 @@ const Dashboard = () => {
       <Header boards={boards}/>
       <Sidebar handleShowCnb={handleShowCnb} boards={boards} />
       <div
-        className={`cnb-overlay w-full min-h-screen bg-[#00000099] absolute inset-0
+        className={`cnb-overlay w-full min-h-screen bg-[#00000099] absolute inset-0 z-50
       flex justify-center items-center ${cnb ? "block" : "hidden"}`}
         onClick={(e) => handleCloseCnb(e)}
       >
@@ -73,6 +73,7 @@ const Dashboard = () => {
                 type="text"
                 name="cnb"
                 id="cnb"
+                autocomplete="off"
                 placeholder="e.g. Web Design"
                 value={boardName}
                 className="border border-[#414552] focus:border-[#6660C3] rounded-[10px] py-[8px] px-[18px] outline-none
