@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import logo from "../assets/logo.svg";
 import { useNavigate } from "react-router";
 
-const Header = ({ boards }) => {
+const Header = ({ boards,handleShowDlb }) => {
   const navigate = useNavigate();
   const [prfToggle, setPrfToggle] = useState(false);
+  const [pointsToggle, setPointsToggle] = useState(false);
 
   const handleLogout = () => {
     localStorage.removeItem("Email");
@@ -14,7 +15,13 @@ const Header = ({ boards }) => {
 
   const handleProfileBox = () => {
     setPrfToggle((prevState) => !prevState);
+    setPointsToggle(false);
   };
+
+  const handlePointsBox = () => {
+    setPointsToggle((prevState) => !prevState);
+    setPrfToggle(false);
+  }
 
   return (
     <header className="w-full min-h-[95px] bg-[#2C2C37] flex items-center justify-between px-[15px]">
@@ -38,9 +45,18 @@ const Header = ({ boards }) => {
             <i className="fa-solid fa-plus"></i>
             <p className="hidden lg:block">Add New Task</p>
           </button>
-          <button className="thp-btn flex items-center justify-center cursor-pointer">
+          <button className="thp-btn flex items-center justify-center cursor-pointer relative"
+          onClick={handlePointsBox}>
             <i className="fa-solid fa-ellipsis-vertical text-[#6660C3] text-[31px]"></i>
           </button>
+          <div className={`points-box z-40 bg-[#2C2C37] prf-btn-box flex justify-between items-center 
+          border border-[#6660C3] rounded-[10px] absolute right-[85px] top-[106px] w-[130px] 
+          h-[100px] ${pointsToggle ? "block" : "hidden"}`}>
+             <ul className="flex flex-col gap-[9px] ms-[10px]">
+              <li className="text-[#778FA2] cursor-pointer">Edit board</li>
+              <li className="text-[#FF0000] cursor-pointer" onClick={handleShowDlb}>Delete board</li>
+             </ul>
+          </div>
         </div>
         <div
           className="profile-btn relative border border-[#6660C3] w-[50px] h-[50px] rounded-[100%] flex justify-center 
@@ -50,7 +66,7 @@ const Header = ({ boards }) => {
           NR
         </div>
         <div
-          className={`prfbox w-[250px] h-[180px] bg-[#2C2C37] prf-btn-box border border-[#6660C3]
+          className={`prfbox z-40 w-[250px] h-[180px] bg-[#2C2C37] prf-btn-box border border-[#6660C3]
         rounded-[10px] p-[15px] text-[#6660C3] absolute right-[25px] top-[105px] flex flex-col items-center
         justify-between ${prfToggle ? "block" : "hidden"}`}
           onClick={handleProfileBox}

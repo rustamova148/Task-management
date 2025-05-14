@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import Main from "./Main";
 
-const Sidebar = ({handleShowCnb,boards}) => {
+const Sidebar = ({handleShowCnb,boards,activeBoardId,handleBoardClick}) => {
+  
   const [checked, setChecked] = useState(true);
   const [isVisible, setIsVisible] = useState(true);
-  const [activeBoardId, setActiveBoardId] = useState(null);
 
   const handleCheck = () => {
     setChecked((prevChecked) => !prevChecked);
@@ -13,10 +13,6 @@ const Sidebar = ({handleShowCnb,boards}) => {
   const handleVisibility = () => {
     setIsVisible((prevState) => !prevState);
   };
-
-  const handleBoardClick = (id) => {
-    setActiveBoardId(id);
-  }
 
   return (
     <div className={`${isVisible ? '' : 'flex items-end'} min-h-[calc(100vh-95px)] flex`}>
@@ -97,6 +93,6 @@ const Sidebar = ({handleShowCnb,boards}) => {
       <Main activeBoardId={activeBoardId} boards={boards} isVisible={isVisible} />
     </div>
   );
-};
+}
 
 export default Sidebar;
