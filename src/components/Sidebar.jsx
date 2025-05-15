@@ -21,12 +21,20 @@ const Sidebar = ({handleShowCnb,boards,activeBoardId,handleBoardClick}) => {
           className="bg-[#2C2C37] w-[100%] sm:w-[50%] md:w-[43%] lg:w-[25%] min-h-[calc(100vh-95px)] flex 
           flex-col justify-between py-[10px] ps-[19px] z-30"
         >
-          <div className="flex flex-col gap-[24px]">
-          <p className="text-[#828FA2] font-semibold">ALL BOARDS ({boards.length})</p>
-          <div className="boards">
+          <div className="flex flex-col gap-[24px] ms-[-18px]">
+          <p className="text-[#828FA2] font-semibold ms-[15px]">ALL BOARDS ({boards.length})</p>
+          <button onClick={handleShowCnb}
+            className="bg-[white] w-[85%] h-[45px] text-[#6660C3] flex items-center px-[5px]
+            justify-center gap-[8px] ms-[15px] font-semibold rounded-[8px] text-[14px] sm:text-[16px] md:text-[16px] 
+            lg:text-[16px] cursor-pointer custom-shadow2"
+          >
+            <i className="fa-solid fa-plus"></i>
+            <span>Create New Board</span>
+          </button>
+          <div className="boards overflow-y-auto max-h-64 custom-scroll2">
             {boards.map(b => (
               <div className={`text-[#828FA2] text-[19px] font-medium flex items-center gap-x-[8px]
-              w-[88%] py-[10px] ps-[15px] ms-[-20px] rounded-r-[50px] mb-[10px] cursor-pointer
+              w-[93%] py-[10px] ps-[15px] rounded-r-[50px] mb-[10px] cursor-pointer
               hover:bg-[white] hover:text-[#6660C3] transition duration-400 overflow-hidden
               ${activeBoardId === b.id ? 'bg-[#6660C3] text-[white]' : ''}`}
               onClick={() => handleBoardClick(b.id)}>
@@ -35,14 +43,6 @@ const Sidebar = ({handleShowCnb,boards,activeBoardId,handleBoardClick}) => {
               </div>
             ))}
           </div>
-          <button onClick={handleShowCnb}
-            className="bg-[white] w-[88%] h-[45px] text-[#6660C3] flex items-center px-[5px]
-            justify-center gap-[8px] font-semibold rounded-[8px] text-[14px] sm:text-[16px] md:text-[16px] 
-            lg:text-[16px] cursor-pointer custom-shadow2"
-          >
-            <i className="fa-solid fa-plus"></i>
-            <span>Create New Board</span>
-          </button>
           </div>
           <div className="flex flex-col gap-[18px] mt-[15px]">
             <div

@@ -12,6 +12,18 @@ const Dashboard = () => {
   const [boards, setBoards] = useState([]);
   const [boardName, setBoardName] = useState("");
   const [boardId, setBoardId] = useState(1);
+  const [pointsToggle, setPointsToggle] = useState(false);
+  const [prfToggle, setPrfToggle] = useState(false);
+
+  const handleProfileBox = () => {
+    setPrfToggle((prevState) => !prevState);
+    setPointsToggle(false);
+  };
+
+  const handlePointsBox = () => {
+    setPointsToggle((prevState) => !prevState);
+    setPrfToggle(false);
+  }
 
   const handleShowCnb = () => {
     setCnb(true);
@@ -54,7 +66,9 @@ const Dashboard = () => {
       id: boardId,
       board: boardName,
       columns: [
-        { name: "Todo", tasks: [] },
+        { name: "Todo", tasks: [
+          
+        ] },
         { name: "Doing", tasks: [] },
         { name: "Done", tasks: [] },
       ],
@@ -67,7 +81,9 @@ const Dashboard = () => {
 
   return (
     <div className="bg-[#21212C] min-h-screen relative">
-      <Header boards={boards} handleShowDlb={handleShowDlb} />
+      <Header boards={boards} handleShowDlb={handleShowDlb} pointsToggle={pointsToggle}
+      prfToggle={prfToggle} handleProfileBox={handleProfileBox} handlePointsBox={handlePointsBox} 
+      />
       <Sidebar
         handleShowCnb={handleShowCnb}
         boards={boards}
@@ -87,6 +103,10 @@ const Dashboard = () => {
         handleCloseDlb={handleCloseDlb}
         handleCloseDlbX={handleCloseDlbX}
         activeBoardName= {activeBoardName}
+        boards={boards}
+        setBoards={setBoards}
+        setDlb={setDlb}
+        setPointsToggle={setPointsToggle}
       />
     </div>
   );

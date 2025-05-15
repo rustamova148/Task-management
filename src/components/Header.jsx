@@ -1,11 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import logo from "../assets/logo.svg";
 import { useNavigate } from "react-router";
 
-const Header = ({ boards,handleShowDlb }) => {
+const Header = ({ boards,handleShowDlb,pointsToggle,prfToggle,handlePointsBox,handleProfileBox}) => {
   const navigate = useNavigate();
-  const [prfToggle, setPrfToggle] = useState(false);
-  const [pointsToggle, setPointsToggle] = useState(false);
 
   const handleLogout = () => {
     localStorage.removeItem("Email");
@@ -13,15 +11,6 @@ const Header = ({ boards,handleShowDlb }) => {
     navigate("/login");
   };
 
-  const handleProfileBox = () => {
-    setPrfToggle((prevState) => !prevState);
-    setPointsToggle(false);
-  };
-
-  const handlePointsBox = () => {
-    setPointsToggle((prevState) => !prevState);
-    setPrfToggle(false);
-  }
 
   return (
     <header className="w-full min-h-[95px] bg-[#2C2C37] flex items-center justify-between px-[15px]">

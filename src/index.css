@@ -31,3 +31,13 @@
 .custom-scroll::-webkit-scrollbar-thumb{
     background-color: #6660C3;
 }
+.custom-scroll2::-webkit-scrollbar{
+    width: 7px;
+    height: 200px;
+}
+.custom-scroll2::-webkit-scrollbar-track{
+    background: transparent;
+}
+.custom-scroll2::-webkit-scrollbar-thumb{
+    background-color: #6660C3;
+}
