@@ -10,6 +10,10 @@ setDlb(false);
 setPointsToggle(false);
 }
 
+const handleCloseDlbC = () => {
+  setDlb(false);
+  setPointsToggle(false);
+}
   return (
     <div
       className={`cnb-overlay w-full min-h-screen bg-[#00000099] absolute inset-0 z-50
@@ -38,7 +42,7 @@ setPointsToggle(false);
             <button className="bg-[red] text-[white] rounded-[8px] px-[5px] w-[42%] py-[10px] 
             font-semibold cursor-pointer custom-shadow2" onClick={()=>handleDeleteb(activeBoardName)}>Delete</button>
             <button className="bg-[#6660C3] text-[white] rounded-[8px] px-[5px] w-[42%] py-[10px] 
-            font-semibold cursor-pointer custom-shadow2" onClick={handleCloseDlbX}>Cancel</button>
+            font-semibold cursor-pointer custom-shadow2" onClick={handleCloseDlbC}>Cancel</button>
           </div>
         </div>
       </div>

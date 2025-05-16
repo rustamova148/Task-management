@@ -3,14 +3,17 @@ import Header from "../components/Header";
 import Sidebar from "../components/Sidebar";
 import Cnbmodal from "../components/Cnbmodal";
 import Deleteboardmodal from "../components/Deleteboardmodal";
+import Addcolumnmodal from "../components/Addcolumnmodal";
 
 const Dashboard = () => {
   const [cnb, setCnb] = useState(false);
   const [dlb, setDlb] = useState(false);
+  const [anc, setAnc] = useState(false);
   const [activeBoardId, setActiveBoardId] = useState(null);
   const [activeBoardName, setActiveBoardName] = useState("");
   const [boards, setBoards] = useState([]);
   const [boardName, setBoardName] = useState("");
+  const [columnName, setColumnName] = useState("");
   const [boardId, setBoardId] = useState(1);
   const [pointsToggle, setPointsToggle] = useState(false);
   const [prfToggle, setPrfToggle] = useState(false);
@@ -31,6 +34,9 @@ const Dashboard = () => {
   const handleShowDlb = () => {
     setDlb(true);
   };
+  const handleShowAnc = () => {
+    setAnc(true);
+  };
   const handleCloseCnb = (e) => {
     if (e.target === e.currentTarget) {
       setCnb(false);
@@ -42,6 +48,12 @@ const Dashboard = () => {
       setDlb(false);
     }
   };
+  const handleCloseAnc = (e) => {
+    if (e.target === e.currentTarget) {
+      console.log("false");
+      setAnc(false);
+    }
+  };
   const handleCloseCnbX = () => {
     setCnb(false);
   };
@@ -49,10 +61,18 @@ const Dashboard = () => {
   const handleCloseDlbX = () => {
     setDlb(false);
   };
+  const handleCloseAncX = () => {
+    setAnc(false);
+  };
 
   const handleBoard = (e) => {
     setBoardName(e.target.value);
   };
+  
+  const handleColumn = (e) => {
+    e.preventDefault();
+    setColumnName(e.target.value);
+  }
 
   const handleBoardClick = (id) => {
     setActiveBoardId(id);
@@ -66,9 +86,7 @@ const Dashboard = () => {
       id: boardId,
       board: boardName,
       columns: [
-        { name: "Todo", tasks: [
-          
-        ] },
+        { name: "Todo", tasks: [] },
         { name: "Doing", tasks: [] },
         { name: "Done", tasks: [] },
       ],
@@ -78,6 +96,22 @@ const Dashboard = () => {
     setBoardId(boardId + 1);
     setCnb(false);
   };
+  
+  const handleAddColumn = (e) => {
+  e.preventDefault();
+  const newColumn = {name:columnName, tasks:[]};
+  setBoards(prevBoards => prevBoards.map(board => {
+    if(board.id === activeBoardId){
+      return{
+        ...board,
+        columns: [...board.columns, newColumn],
+      }
+    }
+    return board;
+  }))
+  setColumnName("");
+  setAnc(false);
+  }
 
   return (
     <div className="bg-[#21212C] min-h-screen relative">
@@ -85,10 +119,11 @@ const Dashboard = () => {
       prfToggle={prfToggle} handleProfileBox={handleProfileBox} handlePointsBox={handlePointsBox} 
       />
       <Sidebar
-        handleShowCnb={handleShowCnb}
         boards={boards}
+        handleShowCnb={handleShowCnb}
         activeBoardId={activeBoardId}
         handleBoardClick={handleBoardClick}
+        handleShowAnc={handleShowAnc}
       />
       <Cnbmodal
         cnb={cnb}
@@ -107,6 +142,14 @@ const Dashboard = () => {
         setBoards={setBoards}
         setDlb={setDlb}
         setPointsToggle={setPointsToggle}
+      />
+      <Addcolumnmodal 
+        anc={anc}
+        handleCloseAnc={handleCloseAnc}
+        handleCloseAncX={handleCloseAncX}
+        handleColumn={handleColumn}
+        handleAddColumn={handleAddColumn}
+        columnName={columnName}
       />
     </div>
   );
