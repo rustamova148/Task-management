@@ -10,7 +10,7 @@ handleShowEb}) => {
   const handleLogout = () => {
     localStorage.removeItem("Email");
     localStorage.removeItem("Password");
-    navigate("/login");
+    navigate("/login", {replace: true});
   };
 
 

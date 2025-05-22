@@ -3,7 +3,7 @@ import loginimg from "../assets/login-image.svg";
 import logo from "../assets/logo.svg";
 import { Link, useNavigate } from "react-router";
 
-const Login = () => {
+const Login = ({setIsLogged}) => {
 const [visibilityp, setVisibilityp] = useState(true);
 const [email, setEmail] = useState("test@kanban.com");
 const [password, setPassword] = useState("12345678Aa");
@@ -20,12 +20,13 @@ e.preventDefault();
 
 const handleSubmit = (e) => {
 e.preventDefault();
-
+setIsLogged(true);
 localStorage.setItem("Email", email);
 localStorage.setItem("Password", password);
 
-navigate('/dashboard');
+navigate('/dashboard', {replace: true});
 }
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#21212C]">
       <div
