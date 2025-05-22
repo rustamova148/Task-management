@@ -10,9 +10,9 @@ const Main = ({ activeBoardId, boards, isVisible, handleShowAnc }) => {
         .map((bn) => (
           <div className="min-w-[280%] lg:min-w-[130%] flex ps-[10px]">
             <div className="min-w-[70%] ms-[-17px] lg:ms-0">
-            <div className="flex gap-[30px] mb-[7px]">
+            <div className="flex gap-[30px] mb-[15px]">
               {isVisible ? '' : <p className="text-[#6660C3] text-[30px] mb-[10px]
-              font-semibold">{bn.board}</p> }
+              font-semibold">{bn.board}</p>}
               <button className="bg-[#2C2C37] text-[#828FA2] w-[140px] h-[50px] rounded-[10px] flex
               items-center justify-center gap-[7px] font-semibold cursor-pointer profile-btn 
               hover:text-[#6660C3]" onClick={handleShowAnc}>

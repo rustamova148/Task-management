@@ -1,14 +1,16 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import Header from "../components/Header";
 import Sidebar from "../components/Sidebar";
 import Cnbmodal from "../components/Cnbmodal";
 import Deleteboardmodal from "../components/Deleteboardmodal";
 import Addcolumnmodal from "../components/Addcolumnmodal";
+import Editboardmodal from "../components/Editboardmodal";
 
 const Dashboard = () => {
   const [cnb, setCnb] = useState(false);
   const [dlb, setDlb] = useState(false);
   const [anc, setAnc] = useState(false);
+  const [eb, setEb] = useState(false);
   const [activeBoardId, setActiveBoardId] = useState(null);
   const [activeBoardName, setActiveBoardName] = useState("");
   const [boards, setBoards] = useState([]);
@@ -17,6 +19,55 @@ const Dashboard = () => {
   const [boardId, setBoardId] = useState(1);
   const [pointsToggle, setPointsToggle] = useState(false);
   const [prfToggle, setPrfToggle] = useState(false);
+
+  const [editableBoard, setEditableBoard] = useState({
+  board: '',
+  columns: []
+  });
+
+  useEffect(() => {
+  const found = boards.find(b => b.board === activeBoardName);
+  if (found) {
+    setEditableBoard({
+      board: found.board,
+      columns: [...found.columns]
+    });
+  }
+  }, [activeBoardName, boards]);
+
+  const handleBoardNameChange = (value) => {
+    setEditableBoard(prev => ({
+      ...prev,
+      board: value
+    }));
+  }
+
+  const handleColumnChange = (index, value) => {
+  const updated = [...editableBoard.columns];
+  updated[index].name = value;
+  setEditableBoard(prev => ({
+    ...prev,
+    columns: updated
+  }));
+  };
+
+  const handleEditedBSubmit = (e) => {
+  e.preventDefault();
+
+  const updatedBoards = boards.map(b => {
+    if (b.board === activeBoardName) {
+      return {
+        ...b,
+        board: editableBoard.board,
+        columns: editableBoard.columns
+      };
+    }
+    return b;
+  });
+
+  setBoards(updatedBoards); 
+  setEb(false);
+  };
 
   const handleProfileBox = () => {
     setPrfToggle((prevState) => !prevState);
@@ -37,6 +88,9 @@ const Dashboard = () => {
   const handleShowAnc = () => {
     setAnc(true);
   };
+  const handleShowEb = () => {
+    setEb(true);
+  }
   const handleCloseCnb = (e) => {
     if (e.target === e.currentTarget) {
       setCnb(false);
@@ -44,16 +98,19 @@ const Dashboard = () => {
   };
   const handleCloseDlb = (e) => {
     if (e.target === e.currentTarget) {
-      console.log("false");
       setDlb(false);
     }
   };
   const handleCloseAnc = (e) => {
     if (e.target === e.currentTarget) {
-      console.log("false");
       setAnc(false);
     }
   };
+  const handleCloseEb = (e) => {
+    if (e.target === e.currentTarget) {
+      setEb(false);
+    }
+  }
   const handleCloseCnbX = () => {
     setCnb(false);
   };
@@ -64,11 +121,12 @@ const Dashboard = () => {
   const handleCloseAncX = () => {
     setAnc(false);
   };
-
+  const handleCloseEbX = () => {
+    setEb(false);
+  };
   const handleBoard = (e) => {
     setBoardName(e.target.value);
   };
-  
   const handleColumn = (e) => {
     e.preventDefault();
     setColumnName(e.target.value);
@@ -117,13 +175,15 @@ const Dashboard = () => {
     <div className="bg-[#21212C] min-h-screen relative">
       <Header boards={boards} handleShowDlb={handleShowDlb} pointsToggle={pointsToggle}
       prfToggle={prfToggle} handleProfileBox={handleProfileBox} handlePointsBox={handlePointsBox} 
+      handleShowEb={handleShowEb}
       />
       <Sidebar
-        boards={boards}
         handleShowCnb={handleShowCnb}
         activeBoardId={activeBoardId}
         handleBoardClick={handleBoardClick}
         handleShowAnc={handleShowAnc}
+        boards={boards}
+        editableBoard={editableBoard}
       />
       <Cnbmodal
         cnb={cnb}
@@ -137,7 +197,7 @@ const Dashboard = () => {
         dlb={dlb}
         handleCloseDlb={handleCloseDlb}
         handleCloseDlbX={handleCloseDlbX}
-        activeBoardName= {activeBoardName}
+        editableBoard= {editableBoard}
         boards={boards}
         setBoards={setBoards}
         setDlb={setDlb}
@@ -150,6 +210,15 @@ const Dashboard = () => {
         handleColumn={handleColumn}
         handleAddColumn={handleAddColumn}
         columnName={columnName}
+      />
+      <Editboardmodal 
+      eb={eb}
+      handleCloseEb={handleCloseEb}
+      handleCloseEbX={handleCloseEbX}
+      handleBoardNameChange={handleBoardNameChange}
+      editableBoard={editableBoard}
+      handleColumnChange={handleColumnChange}
+      handleEditedBSubmit={handleEditedBSubmit}
       />
     </div>
   );

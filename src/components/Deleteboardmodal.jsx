@@ -1,6 +1,6 @@
 import React from "react";
 
-const Deleteboardmodal = ({dlb,handleCloseDlb,handleCloseDlbX,activeBoardName,boards,setBoards,
+const Deleteboardmodal = ({dlb,handleCloseDlb,handleCloseDlbX,editableBoard,boards,setBoards,
 setDlb,setPointsToggle}) => {
 
 const handleDeleteb = (board) => {
@@ -35,12 +35,12 @@ const handleCloseDlbC = () => {
           </div>
           <p className="text-[#7B8799]">
             Are you sure you want to delete the 
-            <span className="text-[red]"> {`"${activeBoardName}"`} </span>
+            <span className="text-[red]"> {`"${editableBoard.board}"`} </span>
             board? This action will remove all columns and tasks and cannot be reversed.
           </p>
           <div className="flex justify-between items-center mt-[13px]">
             <button className="bg-[red] text-[white] rounded-[8px] px-[5px] w-[42%] py-[10px] 
-            font-semibold cursor-pointer custom-shadow2" onClick={()=>handleDeleteb(activeBoardName)}>Delete</button>
+            font-semibold cursor-pointer custom-shadow2" onClick={()=>handleDeleteb(editableBoard.board)}>Delete</button>
             <button className="bg-[#6660C3] text-[white] rounded-[8px] px-[5px] w-[42%] py-[10px] 
             font-semibold cursor-pointer custom-shadow2" onClick={handleCloseDlbC}>Cancel</button>
           </div>

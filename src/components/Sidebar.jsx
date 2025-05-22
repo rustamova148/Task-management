@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Main from "./Main";
 
-const Sidebar = ({handleShowCnb,boards,activeBoardId,handleBoardClick,handleShowAnc}) => {
+const Sidebar = ({handleShowCnb,boards,activeBoardId,handleBoardClick,handleShowAnc,editableBoard}) => {
   
   const [checked, setChecked] = useState(true);
   const [isVisible, setIsVisible] = useState(true);
@@ -33,7 +33,17 @@ const Sidebar = ({handleShowCnb,boards,activeBoardId,handleBoardClick,handleShow
           </button>
           <div className="boards overflow-y-auto max-h-64 custom-scroll2">
             {boards.map(b => (
+              b.id === activeBoardId ? (
               <div className={`text-[#828FA2] text-[19px] font-medium flex items-center gap-x-[8px]
+              w-[93%] py-[10px] ps-[15px] rounded-r-[50px] mb-[10px] cursor-pointer
+              hover:bg-[white] hover:text-[#6660C3] transition duration-400 overflow-hidden
+              ${activeBoardId === b.id ? 'bg-[#6660C3] text-[white]' : ''}`}
+              onClick={() => handleBoardClick(editableBoard.id)}>
+                <i className="fa-solid fa-bolt"></i>
+                <p>{editableBoard.board}</p>
+              </div>
+              ) : (
+                <div className={`text-[#828FA2] text-[19px] font-medium flex items-center gap-x-[8px]
               w-[93%] py-[10px] ps-[15px] rounded-r-[50px] mb-[10px] cursor-pointer
               hover:bg-[white] hover:text-[#6660C3] transition duration-400 overflow-hidden
               ${activeBoardId === b.id ? 'bg-[#6660C3] text-[white]' : ''}`}
@@ -41,6 +51,7 @@ const Sidebar = ({handleShowCnb,boards,activeBoardId,handleBoardClick,handleShow
                 <i className="fa-solid fa-bolt"></i>
                 <p>{b.board}</p>
               </div>
+              )
             ))}
           </div>
           </div>

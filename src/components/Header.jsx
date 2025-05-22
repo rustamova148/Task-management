@@ -2,7 +2,9 @@ import React from "react";
 import logo from "../assets/logo.svg";
 import { useNavigate } from "react-router";
 
-const Header = ({ boards,handleShowDlb,pointsToggle,prfToggle,handlePointsBox,handleProfileBox}) => {
+const Header = ({ boards,handleShowDlb,pointsToggle,prfToggle,handlePointsBox,handleProfileBox,
+handleShowEb}) => {
+
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -42,7 +44,7 @@ const Header = ({ boards,handleShowDlb,pointsToggle,prfToggle,handlePointsBox,ha
           border border-[#6660C3] rounded-[10px] absolute right-[85px] top-[106px] w-[130px] 
           h-[100px] ${pointsToggle ? "block" : "hidden"}`}>
              <ul className="flex flex-col gap-[9px] ms-[10px]">
-              <li className="text-[#778FA2] cursor-pointer">Edit board</li>
+              <li className="text-[#778FA2] cursor-pointer" onClick={handleShowEb}>Edit board</li>
               <li className="text-[#FF0000] cursor-pointer" onClick={handleShowDlb}>Delete board</li>
              </ul>
           </div>
