@@ -3,7 +3,7 @@ import logo from "../assets/logo.svg";
 import { useNavigate } from "react-router";
 
 const Header = ({ boards,handleShowDlb,pointsToggle,prfToggle,handlePointsBox,handleProfileBox,
-handleShowEb}) => {
+handleShowEb,handleShowInf}) => {
 
   const navigate = useNavigate();
 
@@ -64,10 +64,20 @@ handleShowEb}) => {
         >
           <p className="text-[20px]">Username</p>
           <ul className="w-full flex flex-col items-start gap-[10px] text-[18px]">
-            <li>Settings</li>
-            <li>Info</li>
-            <li onClick={handleLogout} className="cursor-pointer">
-              Logout
+            <li className="cursor-pointer hover:text-white flex gap-[14px] items-center
+            transition duration-300">
+              <i className="fa-solid fa-gear"></i>
+              <span>Settings</span>
+            </li>
+            <li className="cursor-pointer hover:text-white flex gap-[21px] items-center ps-[5px]
+            transition duration-300" onClick={handleShowInf}>
+              <i className="fa-solid fa-info"></i>
+              <span>Info</span>
+            </li>
+            <li onClick={handleLogout} className="cursor-pointer hover:text-white flex gap-[14px] items-center
+            transition duration-300">
+              <i className="fa-solid fa-right-from-bracket"></i>
+              <span>Logout</span>
             </li>
           </ul>
         </div>

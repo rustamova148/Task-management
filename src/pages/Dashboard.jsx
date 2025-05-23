@@ -5,12 +5,14 @@ import Cnbmodal from "../components/Cnbmodal";
 import Deleteboardmodal from "../components/Deleteboardmodal";
 import Addcolumnmodal from "../components/Addcolumnmodal";
 import Editboardmodal from "../components/Editboardmodal";
+import Infomodal from "../components/Infomodal";
 
 const Dashboard = () => {
   const [cnb, setCnb] = useState(false);
   const [dlb, setDlb] = useState(false);
   const [anc, setAnc] = useState(false);
   const [eb, setEb] = useState(false);
+  const [inf, setInf] = useState(false);
   const [activeBoardId, setActiveBoardId] = useState(null);
   const [activeBoardName, setActiveBoardName] = useState("");
   const [boards, setBoards] = useState([]);
@@ -91,6 +93,9 @@ const Dashboard = () => {
   const handleShowEb = () => {
     setEb(true);
   }
+  const handleShowInf = () => {
+    setInf(true);
+  }
   const handleCloseCnb = (e) => {
     if (e.target === e.currentTarget) {
       setCnb(false);
@@ -109,6 +114,11 @@ const Dashboard = () => {
   const handleCloseEb = (e) => {
     if (e.target === e.currentTarget) {
       setEb(false);
+    }
+  }
+  const handleCloseInf = (e) => {
+    if (e.target === e.currentTarget) {
+      setInf(false);
     }
   }
   const handleCloseCnbX = () => {
@@ -175,7 +185,7 @@ const Dashboard = () => {
     <div className="bg-[#21212C] min-h-screen relative">
       <Header boards={boards} handleShowDlb={handleShowDlb} pointsToggle={pointsToggle}
       prfToggle={prfToggle} handleProfileBox={handleProfileBox} handlePointsBox={handlePointsBox} 
-      handleShowEb={handleShowEb}
+      handleShowEb={handleShowEb} handleShowInf={handleShowInf}
       />
       <Sidebar
         handleShowCnb={handleShowCnb}
@@ -220,6 +230,7 @@ const Dashboard = () => {
       handleColumnChange={handleColumnChange}
       handleEditedBSubmit={handleEditedBSubmit}
       />
+      <Infomodal inf={inf} handleCloseInf={handleCloseInf} />
     </div>
   );
 };

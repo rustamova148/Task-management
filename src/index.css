@@ -41,3 +41,6 @@
 .custom-scroll2::-webkit-scrollbar-thumb{
     background-color: #6660C3;
 }
+.scrollbar-none::-webkit-scrollbar{
+    display: none;
+}
