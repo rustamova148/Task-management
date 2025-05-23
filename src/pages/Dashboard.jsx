@@ -18,6 +18,7 @@ const Dashboard = () => {
   const [boards, setBoards] = useState([]);
   const [boardName, setBoardName] = useState("");
   const [columnName, setColumnName] = useState("");
+  const [columnId, setColumnId] = useState(4);
   const [boardId, setBoardId] = useState(1);
   const [pointsToggle, setPointsToggle] = useState(false);
   const [prfToggle, setPrfToggle] = useState(false);
@@ -142,6 +143,13 @@ const Dashboard = () => {
     setColumnName(e.target.value);
   }
 
+  const handleDeleteColumn = (index) => {
+  setEditableBoard(prev => ({
+    ...prev,
+    columns: prev.columns.filter(c => c.id !== index)
+  }));
+  }
+
   const handleBoardClick = (id) => {
     setActiveBoardId(id);
     const active_b = boards.find((b) => b.id === id);
@@ -154,20 +162,22 @@ const Dashboard = () => {
       id: boardId,
       board: boardName,
       columns: [
-        { name: "Todo", tasks: [] },
-        { name: "Doing", tasks: [] },
-        { name: "Done", tasks: [] },
+        { id: 1, name: "Todo", tasks: [] },
+        { id: 2, name: "Doing", tasks: [] },
+        { id: 3 , name: "Done", tasks: [] },
       ],
     };
     setBoards((prevBoards) => [...prevBoards, newBoard]);
     setBoardName("");
     setBoardId(boardId + 1);
     setCnb(false);
+    boards.map(b=> console.log(b.columns));
   };
   
   const handleAddColumn = (e) => {
   e.preventDefault();
-  const newColumn = {name:columnName, tasks:[]};
+  const newColumn = {id:columnId, name:columnName, tasks:[]};
+  setColumnId(prev => prev + 1);
   setBoards(prevBoards => prevBoards.map(board => {
     if(board.id === activeBoardId){
       return{
@@ -229,6 +239,7 @@ const Dashboard = () => {
       editableBoard={editableBoard}
       handleColumnChange={handleColumnChange}
       handleEditedBSubmit={handleEditedBSubmit}
+      handleDeleteColumn={handleDeleteColumn}
       />
       <Infomodal inf={inf} handleCloseInf={handleCloseInf} />
     </div>

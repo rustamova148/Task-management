@@ -7,8 +7,8 @@ const Infomodal = ({handleCloseInf,inf}) => {
     onClick={(e) => handleCloseInf(e)}
     >
         <div className="dlb-modal w-[80%] max-h-screen bg-[#2C2C37] pt-[17px] text-[#828FA2]
-        overflow-y-auto scrollbar-none px-[20px] pb-[25px] flex flex-col 
-        gap-[15px] mx-[17px] sm:mx-0 md:mx-0 lg:mx-0 sm:w-[50%] md:w-[50%] lg:w-[35%]"
+        overflow-y-auto scrollbar-none px-[20px] pb-[25px] flex flex-col gap-[15px] mx-[17px] 
+        sm:mx-0 md:mx-0 lg:mx-0 sm:w-[50%] md:w-[50%] lg:w-[35%]"
         >
             <h1 className='text-[27px] text-[#6660C3] font-semibold'>Kanban Task Management</h1>
             <p>
