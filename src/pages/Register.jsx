@@ -48,7 +48,7 @@ e.preventDefault();
             </div>
             <div className="flex flex-col gap-[5px]">
             <label htmlFor="emailr" className="text-[#6660C3]">Email</label>
-            <input type="email" id="emailr" placeholder="example@gmail.com" autocomplete="off" className="border-2 border-[#6660C3] 
+            <input type="email" id="emailr" placeholder="example@gmail.com" autoComplete="off" className="border-2 border-[#6660C3] 
             rounded-[10px] py-[13px] px-[10px] outline-none text-[#6660C3] text-[20px]" value=""/>
             </div>
             <div className="flex flex-col gap-[5px]">

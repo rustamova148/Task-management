@@ -34,7 +34,7 @@ columnName}) => {
               type="text"
               name="anc"
               id="anc"
-              autocomplete="off"
+              autoComplete="off"
               value={columnName}
               className="border border-[#414552] focus:border-[#6660C3] rounded-[10px] py-[8px] 
               px-[18px] outline-none caret-[#6660C3] text-[#6660C3] w-full"

@@ -57,7 +57,7 @@ navigate('/dashboard', {replace: true});
           onSubmit={handleSubmit}>
             <div className="flex flex-col gap-[5px]">
             <label htmlFor="emaill" className="text-[#6660C3]">Email</label>
-            <input type="email" id="emaill" autocomplete="off" className="border-2 border-[#6660C3] 
+            <input type="email" id="emaill" autoComplete="off" className="border-2 border-[#6660C3] 
             rounded-[10px] py-[13px] px-[10px] outline-none text-[#6660C3] text-[20px]" 
             value={email} onChange={(e) => setEmail(e.target.value)}/>
             </div>

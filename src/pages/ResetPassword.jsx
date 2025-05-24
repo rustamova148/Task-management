@@ -36,7 +36,7 @@ const ResetPassword = () => {
           <form className="w-[95%] flex flex-col gap-[25px] mt-[30px] relative">
             <div className="flex flex-col gap-[5px]">
             <label htmlFor="emailrp" className="text-[#6660C3]">Email</label>
-            <input type="email" placeholder="example@gmail.com" id="emailrp" autocomplete="off" className="border-2 border-[#6660C3] 
+            <input type="email" placeholder="example@gmail.com" id="emailrp" autoComplete="off" className="border-2 border-[#6660C3] 
             rounded-[10px] py-[13px] px-[10px] outline-none text-[#6660C3] text-[20px]" />
             </div>
           </form>

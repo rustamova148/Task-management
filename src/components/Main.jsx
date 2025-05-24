@@ -8,7 +8,7 @@ const Main = ({ activeBoardId, boards, isVisible, handleShowAnc }) => {
       {boards
         .filter((b) => b.id === activeBoardId)
         .map((bn) => (
-          <div className="min-w-[280%] lg:min-w-[130%] flex ps-[10px]">
+          <div key={bn.id} className="min-w-[280%] lg:min-w-[130%] flex ps-[10px]">
             <div className="min-w-[70%] ms-[-17px] lg:ms-0">
             <div className="flex gap-[30px] mb-[15px]">
               {isVisible ? '' : <p className="text-[#6660C3] text-[30px] mb-[10px]
@@ -22,7 +22,7 @@ const Main = ({ activeBoardId, boards, isVisible, handleShowAnc }) => {
             </div>
             <div className="flex justify-between">
               {bn.columns.map((bnc) => (
-                <div className="w-[80%] text-[#828FA2] text-[14px] font-semibold tracking-wider">
+                <div key={bnc.id} className="w-[80%] text-[#828FA2] text-[14px] font-semibold tracking-wider">
                   {bnc.name} ({bnc.tasks.length})
                 </div>
               ))}

@@ -50,12 +50,12 @@ editableBoard,handleEditedBSubmit,handleDeleteColumn}) => {
               </label>
               <div className='flex flex-col gap-[15px]'>
               {editableBoard.columns.map((c) => (
-                <div className='flex items-center gap-[15px]'>
+                <div key={c.id} className='flex items-center gap-[15px]'>
                 <input
                 type="text"
                 name={`column-${c.id}`}
                 id={`column-${c.id}`}
-                autocomplete="off"
+                autoComplete="off"
                 value={c.name}
                 className="border border-[#414552] focus:border-[#6660C3] rounded-[10px] py-[8px] px-[18px] outline-none
               caret-[#6660C3] placeholder-[#414552] text-[#6660C3] w-full"
