@@ -27,7 +27,7 @@ columnName}) => {
           onSubmit={(e) => handleAddColumn(e)}
         >
           <div className="flex flex-col gap-[10px]">
-            <label htmlFor="cnb" className="text-[white] text-[14px]">
+            <label htmlFor="anc" className="text-[white] text-[14px]">
               Column Name
             </label>
             <input

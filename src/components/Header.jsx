@@ -3,7 +3,7 @@ import logo from "../assets/logo.svg";
 import { useNavigate } from "react-router";
 
 const Header = ({ boards,handleShowDlb,pointsToggle,prfToggle,handlePointsBox,handleProfileBox,
-handleShowEb,handleShowInf}) => {
+handleShowEb,handleShowInf,handleShowAnt}) => {
 
   const navigate = useNavigate();
 
@@ -30,9 +30,9 @@ handleShowEb,handleShowInf}) => {
           }`}
         >
           <button
-            className="ant-btn bg-[#6660C3] h-[45px] text-[white] flex items-center px-[15px]
-        lg:px-[10px] justify-center gap-[8px] font-semibold rounded-[8px] cursor-pointer custom-shadow2"
-          >
+          className="ant-btn bg-[#6660C3] h-[45px] text-[white] flex items-center px-[15px]
+          lg:px-[10px] justify-center gap-[8px] font-semibold rounded-[8px] cursor-pointer custom-shadow2"
+          onClick={handleShowAnt}>
             <i className="fa-solid fa-plus"></i>
             <p className="hidden lg:block">Add New Task</p>
           </button>

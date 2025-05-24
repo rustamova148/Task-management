@@ -6,6 +6,7 @@ import Deleteboardmodal from "../components/Deleteboardmodal";
 import Addcolumnmodal from "../components/Addcolumnmodal";
 import Editboardmodal from "../components/Editboardmodal";
 import Infomodal from "../components/Infomodal";
+import Addnewtaskmodal from "../components/Addnewtaskmodal";
 
 const Dashboard = () => {
   const [cnb, setCnb] = useState(false);
@@ -13,6 +14,7 @@ const Dashboard = () => {
   const [anc, setAnc] = useState(false);
   const [eb, setEb] = useState(false);
   const [inf, setInf] = useState(false);
+  const [ant, setAnt] = useState(false);
   const [activeBoardId, setActiveBoardId] = useState(null);
   const [activeBoardName, setActiveBoardName] = useState("");
   const [boards, setBoards] = useState([]);
@@ -36,6 +38,14 @@ const Dashboard = () => {
       columns: [...found.columns]
     });
   }
+  // else if(boards.length > 0) {
+  //   const firstboard = boards[0];
+  //   setEditableBoard({
+  //     board: firstboard.board,
+  //     columns: [...firstboard.columns]
+  //   })
+  //   setActiveBoardName(firstboard.board);
+  // }
   }, [activeBoardName, boards]);
 
   const handleBoardNameChange = (value) => {
@@ -71,6 +81,7 @@ const Dashboard = () => {
 
   setBoards(updatedBoards); 
   setEb(false);
+  setPointsToggle(false);
   };
 
   const handleProfileBox = () => {
@@ -98,6 +109,9 @@ const Dashboard = () => {
   const handleShowInf = () => {
     setInf(true);
   }
+  const handleShowAnt = () => {
+    setAnt(true);
+  }
   const handleCloseCnb = (e) => {
     if (e.target === e.currentTarget) {
       setCnb(false);
@@ -123,6 +137,11 @@ const Dashboard = () => {
       setInf(false);
     }
   }
+  const handleCloseAnt = (e) => {
+    if (e.target === e.currentTarget) {
+      setAnt(false);
+    }
+  }
   const handleCloseCnbX = () => {
     setCnb(false);
   };
@@ -136,6 +155,9 @@ const Dashboard = () => {
   const handleCloseEbX = () => {
     setEb(false);
   };
+  const handleCloseAntX = () => {
+    setAnt(false);
+  }
   const handleBoard = (e) => {
     setBoardName(e.target.value);
   };
@@ -169,6 +191,10 @@ const Dashboard = () => {
       ],
     };
     setBoards((prevBoards) => [...prevBoards, newBoard]);
+    if(boards.length === 0){
+      setActiveBoardId(newBoard.id);
+      setActiveBoardName(newBoard.board);
+    }
     setBoardName("");
     setBoardId(boardId + 1);
     setCnb(false);
@@ -196,7 +222,7 @@ const Dashboard = () => {
     <div className="bg-[#21212C] min-h-screen relative">
       <Header boards={boards} handleShowDlb={handleShowDlb} pointsToggle={pointsToggle}
       prfToggle={prfToggle} handleProfileBox={handleProfileBox} handlePointsBox={handlePointsBox} 
-      handleShowEb={handleShowEb} handleShowInf={handleShowInf}
+      handleShowEb={handleShowEb} handleShowInf={handleShowInf} handleShowAnt={handleShowAnt}
       />
       <Sidebar
         handleShowCnb={handleShowCnb}
@@ -243,6 +269,7 @@ const Dashboard = () => {
       handleDeleteColumn={handleDeleteColumn}
       />
       <Infomodal inf={inf} handleCloseInf={handleCloseInf} />
+      <Addnewtaskmodal ant={ant} handleCloseAnt={handleCloseAnt} handleCloseAntX={handleCloseAntX} />
     </div>
   );
 };
