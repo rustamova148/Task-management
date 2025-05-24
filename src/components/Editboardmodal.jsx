@@ -2,6 +2,7 @@ import React from 'react'
 
 const Editboardmodal = ({eb,handleCloseEb,handleCloseEbX,handleBoardNameChange,handleColumnChange,
 editableBoard,handleEditedBSubmit,handleDeleteColumn}) => {
+
   return (
     <div
       className={`cnb-overlay w-full min-h-screen bg-[#00000099] absolute inset-0 z-50 overflow-hidden
@@ -31,9 +32,9 @@ editableBoard,handleEditedBSubmit,handleDeleteColumn}) => {
               </label>
               <input
                 type="text"
-                name="eb"
-                id="eb"
-                autocomplete="off"
+                name="board-name"
+                id="board-name"
+                autoComplete="off"
                 value={editableBoard.board}
                 className="border border-[#414552] focus:border-[#6660C3] rounded-[10px] py-[8px] px-[18px] outline-none
               caret-[#6660C3] placeholder-[#414552] text-[#6660C3] w-full"
@@ -49,18 +50,23 @@ editableBoard,handleEditedBSubmit,handleDeleteColumn}) => {
               </label>
               <div className='flex flex-col gap-[15px]'>
               {editableBoard.columns.map((c) => (
-                <div className='flex items-center gap-[15px]' >
+                <div className='flex items-center gap-[15px]'>
                 <input
                 type="text"
-                name="eb"
-                id="eb"
+                name={`column-${c.id}`}
+                id={`column-${c.id}`}
                 autocomplete="off"
                 value={c.name}
                 className="border border-[#414552] focus:border-[#6660C3] rounded-[10px] py-[8px] px-[18px] outline-none
               caret-[#6660C3] placeholder-[#414552] text-[#6660C3] w-full"
-                onChange={(e) => handleColumnChange(c.id, e.target.value)}
+                onChange={(e) => {
+                  console.log("Changing:", c.id, e.target.value);
+                  handleColumnChange(c.id, e.target.value)
+                }}
                 />
-                <button type="button" className='cursor-pointer' onClick={() => handleDeleteColumn(c.id)}>
+                <button type="button" className='cursor-pointer' 
+                onClick={() => handleDeleteColumn(c.id)}
+                >
                 <i className="fa-solid fa-xmark text-[white] text-[20px]"></i>
                 </button>
                 </div>

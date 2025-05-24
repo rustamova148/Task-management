@@ -45,8 +45,9 @@ const Dashboard = () => {
     }));
   }
 
-  const handleColumnChange = (index, value) => {
+  const handleColumnChange = (id, value) => {
   const updated = [...editableBoard.columns];
+  const index = updated.findIndex((col) => col.id === id);
   updated[index].name = value;
   setEditableBoard(prev => ({
     ...prev,
@@ -143,10 +144,10 @@ const Dashboard = () => {
     setColumnName(e.target.value);
   }
 
-  const handleDeleteColumn = (index) => {
+  const handleDeleteColumn = (id) => {
   setEditableBoard(prev => ({
     ...prev,
-    columns: prev.columns.filter(c => c.id !== index)
+    columns: prev.columns.filter(c => c.id !== id)
   }));
   }
 
@@ -164,7 +165,7 @@ const Dashboard = () => {
       columns: [
         { id: 1, name: "Todo", tasks: [] },
         { id: 2, name: "Doing", tasks: [] },
-        { id: 3 , name: "Done", tasks: [] },
+        { id: 3, name: "Done", tasks: [] },
       ],
     };
     setBoards((prevBoards) => [...prevBoards, newBoard]);
