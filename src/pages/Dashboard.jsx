@@ -1,4 +1,5 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import {v4 as uuidv4} from 'uuid';
 import Header from "../components/Header";
 import Sidebar from "../components/Sidebar";
 import Cnbmodal from "../components/Cnbmodal";
@@ -24,6 +25,34 @@ const Dashboard = () => {
   const [boardId, setBoardId] = useState(1);
   const [pointsToggle, setPointsToggle] = useState(false);
   const [prfToggle, setPrfToggle] = useState(false);
+  const [selectedColumn, setSelectedColumn] = useState("");
+  const [taskname, setTaskname] = useState("");
+  const [taskdesc, setTaskdesc] = useState("");
+  const [subinp, setSubinp] = useState([
+    {id: uuidv4(), sname: ""},
+    {id: uuidv4(), sname: ""}
+  ]);
+
+  const handleAddStask = () => {
+  setSubinp(prev => [...prev, {id: uuidv4(), sname: ""}]);
+  }
+  const handleStChange = (id, value) => {
+  const updated = subinp.map(si => 
+  si.id === id ? {...si, sname: value} : si
+  );
+  setSubinp(updated);
+  }
+  const handleDeleteStask = (id) => {
+  const h = subinp.filter(s => s.id !== id);
+  setSubinp(h);
+  }
+  
+  const handleAddTask = (e) => {
+    e.preventDefault();
+    const updated = boards.map(b => {
+      
+    })
+  }
 
   const [editableBoard, setEditableBoard] = useState({
   board: '',
@@ -38,14 +67,6 @@ const Dashboard = () => {
       columns: [...found.columns]
     });
   }
-  // else if(boards.length > 0) {
-  //   const firstboard = boards[0];
-  //   setEditableBoard({
-  //     board: firstboard.board,
-  //     columns: [...firstboard.columns]
-  //   })
-  //   setActiveBoardName(firstboard.board);
-  // }
   }, [activeBoardName, boards]);
 
   const handleBoardNameChange = (value) => {
@@ -269,7 +290,14 @@ const Dashboard = () => {
       handleDeleteColumn={handleDeleteColumn}
       />
       <Infomodal inf={inf} handleCloseInf={handleCloseInf} />
-      <Addnewtaskmodal ant={ant} handleCloseAnt={handleCloseAnt} handleCloseAntX={handleCloseAntX} />
+      <Addnewtaskmodal ant={ant} subinp={subinp}
+      handleCloseAnt={handleCloseAnt} handleCloseAntX={handleCloseAntX}
+      editableBoard={editableBoard} selectedColumn={selectedColumn} 
+      setSelectedColumn={setSelectedColumn} taskname={taskname} setTaskname={setTaskname}
+      taskdesc={taskdesc} setTaskdesc={setTaskdesc} handleAddStask={handleAddStask}
+      handleStChange={handleStChange} handleDeleteStask={handleDeleteStask} 
+      handleAddTask={handleAddTask}
+      />
     </div>
   );
 };
