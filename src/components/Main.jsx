@@ -1,4 +1,5 @@
 import React from "react";
+import TaskCard from "./TaskCard";
 
 const Main = ({ activeBoardId, boards, isVisible, handleShowAnc }) => {
 
@@ -24,6 +25,7 @@ const Main = ({ activeBoardId, boards, isVisible, handleShowAnc }) => {
               {bn.columns.map((bnc) => (
                 <div key={bnc.id} className="w-[80%] text-[#828FA2] text-[14px] font-semibold tracking-wider">
                   {bnc.name} ({bnc.tasks.length})
+                  <TaskCard columnitem={bnc} />
                 </div>
               ))}
             </div>

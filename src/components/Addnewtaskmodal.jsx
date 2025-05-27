@@ -104,7 +104,7 @@ handleDeleteStask, subinp, handleAddTask
             </label>
             <Listbox value={selectedColumn} onChange={setSelectedColumn}>
               <Listbox.Button className="w-full border border-[#414552] focus:border-[#6660C3]
-              rounded-lg p-2 text-left outline-none flex items-center justify-between text-[#6660C3]">
+              rounded-lg p-3 text-left outline-none flex items-center justify-between text-[#6660C3]">
                <span>{selectedColumn?.name}</span>
                <i className="fa-solid fa-angle-down text-[#6660C3]"></i>
               </Listbox.Button>

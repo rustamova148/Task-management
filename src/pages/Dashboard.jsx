@@ -30,18 +30,20 @@ const Dashboard = () => {
   const [taskdesc, setTaskdesc] = useState("");
   const [subinp, setSubinp] = useState([
     {id: uuidv4(), sname: ""},
-    {id: uuidv4(), sname: ""}
+    {id: uuidv4(), sname: ""},
   ]);
 
   const handleAddStask = () => {
   setSubinp(prev => [...prev, {id: uuidv4(), sname: ""}]);
   }
+
   const handleStChange = (id, value) => {
   const updated = subinp.map(si => 
   si.id === id ? {...si, sname: value} : si
   );
   setSubinp(updated);
   }
+  
   const handleDeleteStask = (id) => {
   const h = subinp.filter(s => s.id !== id);
   setSubinp(h);
@@ -50,9 +52,31 @@ const Dashboard = () => {
   const handleAddTask = (e) => {
     e.preventDefault();
     const updated = boards.map(b => {
-      
+      if(b.id === activeBoardId){
+      const updatedColumns = b.columns.map(col => {
+        if(col.name === selectedColumn.name){
+          return{
+            ...col,
+            tasks: [...col.tasks, {id: uuidv4(), t_name: taskname, t_desc: taskdesc, stasks: [...subinp]}]
+          }
+        }
+        return col;
+      })
+        return{
+          ...b,
+          columns: updatedColumns
+          
+        }
+      }
+      return b;
     })
+    setBoards(updated);
+    setAnt(false);
   }
+  console.log(boards);
+  // console.log(selectedColumn.name)
+  // console.log(taskname)
+  // console.log(taskdesc)
 
   const [editableBoard, setEditableBoard] = useState({
   board: '',
