@@ -72,11 +72,11 @@ const Dashboard = () => {
     })
     setBoards(updated);
     setAnt(false);
+    setTaskname("");
+    setTaskdesc("");
+    setSelectedColumn("");
+    setSubinp(prev => prev.map(item => ({...item, sname: ""})))
   }
-  console.log(boards);
-  // console.log(selectedColumn.name)
-  // console.log(taskname)
-  // console.log(taskdesc)
 
   const [editableBoard, setEditableBoard] = useState({
   board: '',
