@@ -31,10 +31,10 @@ const Dashboard = () => {
   const [taskname, setTaskname] = useState("");
   const [taskdesc, setTaskdesc] = useState("");
   const [subinp, setSubinp] = useState([
-    {id: uuidv4(), sname: ""},
-    {id: uuidv4(), sname: ""},
+    {id: uuidv4(), sname: "", checked: false},
+    {id: uuidv4(), sname: "", checked: false},
   ]);
-
+  
   const handleAddStask = () => {
   setSubinp(prev => [...prev, {id: uuidv4(), sname: ""}]);
   }
@@ -79,6 +79,36 @@ const Dashboard = () => {
     setSelectedColumn("");
     setSubinp(prev => prev.map(item => ({...item, sname: ""})))
   }
+  
+  const handleCheck = (taskId, staskId) => {
+  const updated = boards.map(b => {
+    if (b.id !== activeBoardId) return b;
+
+    return {
+      ...b,
+      columns: b.columns.map(col => ({
+        ...col,
+        tasks: col.tasks.map(task => {
+          if (task.id !== taskId) return task;
+
+          return {
+            ...task,
+            stasks: task.stasks.map(st => {
+              if (st.id === staskId) {
+                return { ...st, checked: !st.checked };
+              }
+              return st;
+            })
+          };
+        })
+      }))
+    };
+  });
+
+  setBoards(updated);
+};
+
+console.log(boards);
 
   const [editableBoard, setEditableBoard] = useState({
   board: '',
@@ -291,6 +321,7 @@ const Dashboard = () => {
         editableBoard={editableBoard}
         selectedColumn={selectedColumn}
         handleShowTd={handleShowTd}
+        subinp={subinp}
       />
       <Cnbmodal
         cnb={cnb}
@@ -339,7 +370,8 @@ const Dashboard = () => {
       />
       <TaskDetail td={td} handleCloseTd={handleCloseTd} handleCloseTdX={handleCloseTdX} 
       boards={boards} activeBoardId={activeBoardId} selectedColumn={selectedColumn}
-      setSelectedColumn={setSelectedColumn} editableBoard={editableBoard} />
+      setSelectedColumn={setSelectedColumn} editableBoard={editableBoard} handleCheck={handleCheck}
+      subinp={subinp} />
     </div>
   );
 };

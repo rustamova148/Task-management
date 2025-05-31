@@ -9,7 +9,7 @@ console.log(columnitem.tasks);
     px-[15px] cursor-pointer show-btn' onClick={handleShowTd}>
       <p className='text-white text-[17px] font-bold hover:text-[#6660C3] transition
       duration-300'>{task.t_name}</p>
-      <p className='font-bold'>0 of {task.stasks.length} subtask</p>
+      <p className='font-bold'>{task.stasks.filter(st => st.checked === true).length} of {task.stasks.length} subtask</p>
     </div>
     ))}
     </div>
