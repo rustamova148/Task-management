@@ -11,6 +11,7 @@ const TaskDetail = ({
   setSelectedColumn,
   editableBoard,
   handleCheck,
+  handleApply
 }) => {
 
   return (
@@ -79,7 +80,7 @@ const TaskDetail = ({
                       ))}
                     </ul>
                   </div>
-                  <div className="flex items-center justify-between">
+                  <form className="flex items-center justify-between" onSubmit={e=>handleApply(e, task.id)}>
                     <div className="w-[80%] flex flex-col gap-[10px] relative">
                       <label
                         htmlFor="statusopt"
@@ -112,13 +113,14 @@ const TaskDetail = ({
                       </Listbox>
                     </div>
                     <button
-                      className="bg-[#25AC00] text-[white] mt-[32px] px-[15px] py-[10px]
-                  rounded-[8px] flex items-center gap-[7px] cursor-pointer custom-shadow2"
+                    type="submit"
+                    className="bg-[#25AC00] text-[white] mt-[32px] px-[15px] py-[10px]
+                    rounded-[8px] flex items-center gap-[7px] cursor-pointer custom-shadow2"
                     >
                       <i className="fa-solid fa-check"></i>
                       <span className="font-semibold">Apply</span>
                     </button>
-                  </div>
+                  </form>
                 </div>
               ))
             )}

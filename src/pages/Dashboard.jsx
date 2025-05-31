@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {v4 as uuidv4} from 'uuid';
+import { v4 as uuidv4 } from "uuid";
 import Header from "../components/Header";
 import Sidebar from "../components/Sidebar";
 import Cnbmodal from "../components/Cnbmodal";
@@ -31,134 +31,183 @@ const Dashboard = () => {
   const [taskname, setTaskname] = useState("");
   const [taskdesc, setTaskdesc] = useState("");
   const [subinp, setSubinp] = useState([
-    {id: uuidv4(), sname: "", checked: false},
-    {id: uuidv4(), sname: "", checked: false},
+    { id: uuidv4(), sname: "", checked: false },
+    { id: uuidv4(), sname: "", checked: false },
   ]);
-  
+
   const handleAddStask = () => {
-  setSubinp(prev => [...prev, {id: uuidv4(), sname: ""}]);
-  }
+    setSubinp((prev) => [...prev, { id: uuidv4(), sname: "" }]);
+  };
 
   const handleStChange = (id, value) => {
-  const updated = subinp.map(si => 
-  si.id === id ? {...si, sname: value} : si
-  );
-  setSubinp(updated);
-  }
-  
+    const updated = subinp.map((si) =>
+      si.id === id ? { ...si, sname: value } : si
+    );
+    setSubinp(updated);
+  };
+
   const handleDeleteStask = (id) => {
-  const h = subinp.filter(s => s.id !== id);
-  setSubinp(h);
-  }
-  
+    const h = subinp.filter((s) => s.id !== id);
+    setSubinp(h);
+  };
+
   const handleAddTask = (e) => {
     e.preventDefault();
-    const updated = boards.map(b => {
-      if(b.id === activeBoardId){
-      const updatedColumns = b.columns.map(col => {
-        if(col.name === selectedColumn.name){
-          return{
-            ...col,
-            tasks: [...col.tasks, {id: uuidv4(), t_name: taskname, t_desc: taskdesc, stasks: [...subinp]}]
+    const updated = boards.map((b) => {
+      if (b.id === activeBoardId) {
+        const updatedColumns = b.columns.map((col) => {
+          if (col.name === selectedColumn.name) {
+            return {
+              ...col,
+              tasks: [
+                ...col.tasks,
+                {
+                  id: uuidv4(),
+                  t_name: taskname,
+                  t_desc: taskdesc,
+                  stasks: [...subinp],
+                },
+              ],
+            };
           }
-        }
-        return col;
-      })
-        return{
+          return col;
+        });
+        return {
           ...b,
-          columns: updatedColumns
-          
-        }
+          columns: updatedColumns,
+        };
       }
       return b;
-    })
+    });
     setBoards(updated);
     setAnt(false);
     setTaskname("");
     setTaskdesc("");
     setSelectedColumn("");
-    setSubinp(prev => prev.map(item => ({...item, sname: ""})))
-  }
-  
+    setSubinp((prev) => prev.map((item) => ({ ...item, sname: "" })));
+  };
+
+  const handleApply = (e, taskId) => {
+    e.preventDefault();
+
+    const activeBoard = boards.find((b) => b.id === activeBoardId);
+    if (!activeBoard) return; 
+
+    let taskToMove = null;
+
+    const newColumns = activeBoard.columns.map((column) => {
+      if (column.tasks.some((task) => task.id === taskId)) {
+        taskToMove = column.tasks.find((task) => task.id === taskId);
+        return {
+          ...column,
+          tasks: column.tasks.filter((task) => task.id !== taskId),
+        };
+      }
+      return column;
+    });
+
+    const updatedColumns = newColumns.map((column) => {
+      if (column.name === selectedColumn.name && taskToMove) {
+        return {
+          ...column,
+          tasks: [...column.tasks, taskToMove],
+        };
+      }
+      return column;
+    });
+
+    const updatedBoards = boards.map((board) => {
+      if (board.id === activeBoardId) {
+        return {
+          ...board,
+          columns: updatedColumns,
+        };
+      }
+      return board;
+    });
+    setBoards(updatedBoards);
+    setTd(false);
+  };
+
   const handleCheck = (taskId, staskId) => {
-  const updated = boards.map(b => {
-    if (b.id !== activeBoardId) return b;
+    const updated = boards.map((b) => {
+      if (b.id !== activeBoardId) return b;
 
-    return {
-      ...b,
-      columns: b.columns.map(col => ({
-        ...col,
-        tasks: col.tasks.map(task => {
-          if (task.id !== taskId) return task;
+      return {
+        ...b,
+        columns: b.columns.map((col) => ({
+          ...col,
+          tasks: col.tasks.map((task) => {
+            if (task.id !== taskId) return task;
 
-          return {
-            ...task,
-            stasks: task.stasks.map(st => {
-              if (st.id === staskId) {
-                return { ...st, checked: !st.checked };
-              }
-              return st;
-            })
-          };
-        })
-      }))
-    };
-  });
+            return {
+              ...task,
+              stasks: task.stasks.map((st) => {
+                if (st.id === staskId) {
+                  return { ...st, checked: !st.checked };
+                }
+                return st;
+              }),
+            };
+          }),
+        })),
+      };
+    });
 
-  setBoards(updated);
-};
+    setBoards(updated);
+  };
 
-console.log(boards);
+  console.log(boards);
 
   const [editableBoard, setEditableBoard] = useState({
-  board: '',
-  columns: []
+    board: "",
+    columns: [],
   });
 
   useEffect(() => {
-  const found = boards.find(b => b.board === activeBoardName);
-  if (found) {
-    setEditableBoard({
-      board: found.board,
-      columns: [...found.columns]
-    });
-  }
+    const found = boards.find((b) => b.board === activeBoardName);
+    if (found) {
+      setEditableBoard({
+        board: found.board,
+        columns: [...found.columns],
+      });
+    }
   }, [activeBoardName, boards]);
 
   const handleBoardNameChange = (value) => {
-    setEditableBoard(prev => ({
+    setEditableBoard((prev) => ({
       ...prev,
-      board: value
+      board: value,
     }));
-  }
+  };
 
   const handleColumnChange = (id, value) => {
-  const updated = [...editableBoard.columns];
-  const index = updated.findIndex((col) => col.id === id);
-  updated[index].name = value;
-  setEditableBoard(prev => ({
-    ...prev,
-    columns: updated
-  }));
+    const updated = [...editableBoard.columns];
+    const index = updated.findIndex((col) => col.id === id);
+    updated[index].name = value;
+    setEditableBoard((prev) => ({
+      ...prev,
+      columns: updated,
+    }));
   };
 
   const handleEditedBSubmit = (e) => {
-  e.preventDefault();
+    e.preventDefault();
 
-  const updatedBoards = boards.map(b => {
-    if (b.board === activeBoardName) {
-      return {
-        ...b,
-        board: editableBoard.board,
-        columns: editableBoard.columns
-      };
-    }
-    return b;
-  });
+    const updatedBoards = boards.map((b) => {
+      if (b.board === activeBoardName) {
+        return {
+          ...b,
+          board: editableBoard.board,
+          columns: editableBoard.columns,
+        };
+      }
+      return b;
+    });
 
-  setBoards(updatedBoards); 
-  setEb(false);
-  setPointsToggle(false);
+    setBoards(updatedBoards);
+    setEb(false);
+    setPointsToggle(false);
   };
 
   const handleProfileBox = () => {
@@ -169,7 +218,7 @@ console.log(boards);
   const handlePointsBox = () => {
     setPointsToggle((prevState) => !prevState);
     setPrfToggle(false);
-  }
+  };
 
   const handleShowCnb = () => {
     setCnb(true);
@@ -182,16 +231,16 @@ console.log(boards);
   };
   const handleShowEb = () => {
     setEb(true);
-  }
+  };
   const handleShowInf = () => {
     setInf(true);
-  }
+  };
   const handleShowAnt = () => {
     setAnt(true);
-  }
+  };
   const handleShowTd = () => {
     setTd(true);
-  }
+  };
   const handleCloseCnb = (e) => {
     if (e.target === e.currentTarget) {
       setCnb(false);
@@ -211,25 +260,25 @@ console.log(boards);
     if (e.target === e.currentTarget) {
       setEb(false);
     }
-  }
+  };
   const handleCloseInf = (e) => {
     if (e.target === e.currentTarget) {
       setInf(false);
     }
-  }
+  };
   const handleCloseAnt = (e) => {
     if (e.target === e.currentTarget) {
       setAnt(false);
     }
-  }
+  };
   const handleCloseTd = (e) => {
     if (e.target === e.currentTarget) {
       setTd(false);
     }
-  }
+  };
   const handleCloseTdX = () => {
     setTd(false);
-  }
+  };
   const handleCloseCnbX = () => {
     setCnb(false);
   };
@@ -245,21 +294,21 @@ console.log(boards);
   };
   const handleCloseAntX = () => {
     setAnt(false);
-  }
+  };
   const handleBoard = (e) => {
     setBoardName(e.target.value);
   };
   const handleColumn = (e) => {
     e.preventDefault();
     setColumnName(e.target.value);
-  }
+  };
 
   const handleDeleteColumn = (id) => {
-  setEditableBoard(prev => ({
-    ...prev,
-    columns: prev.columns.filter(c => c.id !== id)
-  }));
-  }
+    setEditableBoard((prev) => ({
+      ...prev,
+      columns: prev.columns.filter((c) => c.id !== id),
+    }));
+  };
 
   const handleBoardClick = (id) => {
     setActiveBoardId(id);
@@ -279,38 +328,47 @@ console.log(boards);
       ],
     };
     setBoards((prevBoards) => [...prevBoards, newBoard]);
-    if(boards.length === 0){
+    if (boards.length === 0) {
       setActiveBoardId(newBoard.id);
       setActiveBoardName(newBoard.board);
     }
     setBoardName("");
     setBoardId(boardId + 1);
     setCnb(false);
-    boards.map(b=> console.log(b.columns));
+    boards.map((b) => console.log(b.columns));
   };
-  
+
   const handleAddColumn = (e) => {
-  e.preventDefault();
-  const newColumn = {id:columnId, name:columnName, tasks:[]};
-  setColumnId(prev => prev + 1);
-  setBoards(prevBoards => prevBoards.map(board => {
-    if(board.id === activeBoardId){
-      return{
-        ...board,
-        columns: [...board.columns, newColumn],
-      }
-    }
-    return board;
-  }))
-  setColumnName("");
-  setAnc(false);
-  }
+    e.preventDefault();
+    const newColumn = { id: columnId, name: columnName, tasks: [] };
+    setColumnId((prev) => prev + 1);
+    setBoards((prevBoards) =>
+      prevBoards.map((board) => {
+        if (board.id === activeBoardId) {
+          return {
+            ...board,
+            columns: [...board.columns, newColumn],
+          };
+        }
+        return board;
+      })
+    );
+    setColumnName("");
+    setAnc(false);
+  };
 
   return (
     <div className="bg-[#21212C] min-h-screen relative">
-      <Header boards={boards} handleShowDlb={handleShowDlb} pointsToggle={pointsToggle}
-      prfToggle={prfToggle} handleProfileBox={handleProfileBox} handlePointsBox={handlePointsBox} 
-      handleShowEb={handleShowEb} handleShowInf={handleShowInf} handleShowAnt={handleShowAnt}
+      <Header
+        boards={boards}
+        handleShowDlb={handleShowDlb}
+        pointsToggle={pointsToggle}
+        prfToggle={prfToggle}
+        handleProfileBox={handleProfileBox}
+        handlePointsBox={handlePointsBox}
+        handleShowEb={handleShowEb}
+        handleShowInf={handleShowInf}
+        handleShowAnt={handleShowAnt}
       />
       <Sidebar
         handleShowCnb={handleShowCnb}
@@ -335,13 +393,13 @@ console.log(boards);
         dlb={dlb}
         handleCloseDlb={handleCloseDlb}
         handleCloseDlbX={handleCloseDlbX}
-        editableBoard= {editableBoard}
+        editableBoard={editableBoard}
         boards={boards}
         setBoards={setBoards}
         setDlb={setDlb}
         setPointsToggle={setPointsToggle}
       />
-      <Addcolumnmodal 
+      <Addcolumnmodal
         anc={anc}
         handleCloseAnc={handleCloseAnc}
         handleCloseAncX={handleCloseAncX}
@@ -349,29 +407,46 @@ console.log(boards);
         handleAddColumn={handleAddColumn}
         columnName={columnName}
       />
-      <Editboardmodal 
-      eb={eb}
-      handleCloseEb={handleCloseEb}
-      handleCloseEbX={handleCloseEbX}
-      handleBoardNameChange={handleBoardNameChange}
-      editableBoard={editableBoard}
-      handleColumnChange={handleColumnChange}
-      handleEditedBSubmit={handleEditedBSubmit}
-      handleDeleteColumn={handleDeleteColumn}
+      <Editboardmodal
+        eb={eb}
+        handleCloseEb={handleCloseEb}
+        handleCloseEbX={handleCloseEbX}
+        handleBoardNameChange={handleBoardNameChange}
+        editableBoard={editableBoard}
+        handleColumnChange={handleColumnChange}
+        handleEditedBSubmit={handleEditedBSubmit}
+        handleDeleteColumn={handleDeleteColumn}
       />
       <Infomodal inf={inf} handleCloseInf={handleCloseInf} />
-      <Addnewtaskmodal ant={ant} subinp={subinp}
-      handleCloseAnt={handleCloseAnt} handleCloseAntX={handleCloseAntX}
-      editableBoard={editableBoard} selectedColumn={selectedColumn} 
-      setSelectedColumn={setSelectedColumn} taskname={taskname} setTaskname={setTaskname}
-      taskdesc={taskdesc} setTaskdesc={setTaskdesc} handleAddStask={handleAddStask}
-      handleStChange={handleStChange} handleDeleteStask={handleDeleteStask} 
-      handleAddTask={handleAddTask}
+      <Addnewtaskmodal
+        ant={ant}
+        subinp={subinp}
+        handleCloseAnt={handleCloseAnt}
+        handleCloseAntX={handleCloseAntX}
+        editableBoard={editableBoard}
+        selectedColumn={selectedColumn}
+        setSelectedColumn={setSelectedColumn}
+        taskname={taskname}
+        setTaskname={setTaskname}
+        taskdesc={taskdesc}
+        setTaskdesc={setTaskdesc}
+        handleAddStask={handleAddStask}
+        handleStChange={handleStChange}
+        handleDeleteStask={handleDeleteStask}
+        handleAddTask={handleAddTask}
       />
-      <TaskDetail td={td} handleCloseTd={handleCloseTd} handleCloseTdX={handleCloseTdX} 
-      boards={boards} activeBoardId={activeBoardId} selectedColumn={selectedColumn}
-      setSelectedColumn={setSelectedColumn} editableBoard={editableBoard} handleCheck={handleCheck}
-      subinp={subinp} />
+      <TaskDetail
+        td={td}
+        handleCloseTd={handleCloseTd}
+        handleCloseTdX={handleCloseTdX}
+        boards={boards}
+        activeBoardId={activeBoardId}
+        selectedColumn={selectedColumn}
+        setSelectedColumn={setSelectedColumn}
+        editableBoard={editableBoard}
+        handleCheck={handleCheck}
+        handleApply={handleApply}
+      />
     </div>
   );
 };
