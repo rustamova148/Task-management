@@ -8,6 +8,7 @@ import Addcolumnmodal from "../components/Addcolumnmodal";
 import Editboardmodal from "../components/Editboardmodal";
 import Infomodal from "../components/Infomodal";
 import Addnewtaskmodal from "../components/Addnewtaskmodal";
+import TaskDetail from "../components/TaskDetail";
 
 const Dashboard = () => {
   const [cnb, setCnb] = useState(false);
@@ -16,6 +17,7 @@ const Dashboard = () => {
   const [eb, setEb] = useState(false);
   const [inf, setInf] = useState(false);
   const [ant, setAnt] = useState(false);
+  const [td, setTd] = useState(false);
   const [activeBoardId, setActiveBoardId] = useState(null);
   const [activeBoardName, setActiveBoardName] = useState("");
   const [boards, setBoards] = useState([]);
@@ -157,6 +159,9 @@ const Dashboard = () => {
   const handleShowAnt = () => {
     setAnt(true);
   }
+  const handleShowTd = () => {
+    setTd(true);
+  }
   const handleCloseCnb = (e) => {
     if (e.target === e.currentTarget) {
       setCnb(false);
@@ -186,6 +191,14 @@ const Dashboard = () => {
     if (e.target === e.currentTarget) {
       setAnt(false);
     }
+  }
+  const handleCloseTd = (e) => {
+    if (e.target === e.currentTarget) {
+      setTd(false);
+    }
+  }
+  const handleCloseTdX = () => {
+    setTd(false);
   }
   const handleCloseCnbX = () => {
     setCnb(false);
@@ -276,6 +289,8 @@ const Dashboard = () => {
         handleShowAnc={handleShowAnc}
         boards={boards}
         editableBoard={editableBoard}
+        selectedColumn={selectedColumn}
+        handleShowTd={handleShowTd}
       />
       <Cnbmodal
         cnb={cnb}
@@ -322,6 +337,9 @@ const Dashboard = () => {
       handleStChange={handleStChange} handleDeleteStask={handleDeleteStask} 
       handleAddTask={handleAddTask}
       />
+      <TaskDetail td={td} handleCloseTd={handleCloseTd} handleCloseTdX={handleCloseTdX} 
+      boards={boards} activeBoardId={activeBoardId} selectedColumn={selectedColumn}
+      setSelectedColumn={setSelectedColumn} editableBoard={editableBoard} />
     </div>
   );
 };

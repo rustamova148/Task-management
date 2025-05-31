@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import Main from "./Main";
 
-const Sidebar = ({handleShowCnb,boards,activeBoardId,handleBoardClick,handleShowAnc,editableBoard}) => {
+const Sidebar = ({handleShowCnb,boards,activeBoardId,handleBoardClick,handleShowAnc,editableBoard,
+selectedColumn, handleShowTd
+}) => {
   
   const [checked, setChecked] = useState(true);
   const [isVisible, setIsVisible] = useState(true);
@@ -101,7 +103,9 @@ const Sidebar = ({handleShowCnb,boards,activeBoardId,handleBoardClick,handleShow
           <i className="fa-solid fa-eye"></i>
         </button>
       )}
-      <Main activeBoardId={activeBoardId} boards={boards} isVisible={isVisible} handleShowAnc={handleShowAnc} />
+      <Main activeBoardId={activeBoardId} boards={boards} isVisible={isVisible} 
+      handleShowAnc={handleShowAnc} selectedColum={selectedColumn} 
+      handleShowTd={handleShowTd} />
     </div>
   );
 }

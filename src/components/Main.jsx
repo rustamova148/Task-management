@@ -1,7 +1,7 @@
 import React from "react";
 import TaskCard from "./TaskCard";
 
-const Main = ({ activeBoardId, boards, isVisible, handleShowAnc }) => {
+const Main = ({ activeBoardId, boards, isVisible, handleShowAnc, handleShowTd }) => {
 
   return (
     <div className="main w-[100%] ms-[-45px] lg:ms-0 min-h-[calc(100vh-95px)] p-[15px] overflow-x-scroll
@@ -25,7 +25,7 @@ const Main = ({ activeBoardId, boards, isVisible, handleShowAnc }) => {
               {bn.columns.map((bnc) => (
                 <div key={bnc.id} className="w-[80%] text-[#828FA2] text-[14px] font-semibold tracking-wider">
                   {bnc.name} ({bnc.tasks.length})
-                  <TaskCard columnitem={bnc} />
+                  <TaskCard columnitem={bnc} handleShowTd={handleShowTd} />
                 </div>
               ))}
             </div>

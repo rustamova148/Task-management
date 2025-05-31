@@ -1,0 +1,116 @@
+import React from "react";
+import { Listbox } from "@headlessui/react"; 
+
+const TaskDetail = ({
+  td,
+  handleCloseTd,
+  handleCloseTdX,
+  boards,
+  activeBoardId,
+  selectedColumn,
+  setSelectedColumn,
+  editableBoard
+}) => {
+  return (
+    <div
+      className={`cnb-overlay w-full min-h-screen bg-[#00000099] absolute inset-0 z-50
+    flex justify-center items-center ${td ? "block" : "hidden"}`}
+      onClick={(e) => handleCloseTd(e)}
+    >
+      {boards
+        .filter((b) => b.id === activeBoardId)
+        .map((bn) => (
+          <div
+          key={bn.id}
+          className="cnb-modal w-[500px] min-h-[290px] bg-[#2C2C37] rounded-[15px] pt-[17px]
+          px-[20px] pb-[50px] flex flex-col justify-between mx-[17px] sm:mx-0 md:mx-0 lg:mx-0"
+          >
+            {bn.columns.map((bnc) =>
+              bnc.tasks.map((task) => (
+                <div key={task.id} className="flex flex-col gap-[25px]">
+                  <div className="flex justify-between items-center">
+                    <p className="text-[white] text-[20px] font-semibold">
+                      {task.t_name}
+                    </p>
+                    <div className="flex items-center gap-[19px]">
+                    <button className="cursor-pointer">
+                      <i className="fa-solid fa-pen-to-square text-[white] text-[20px]"></i>
+                    </button>
+                    <button className="cursor-pointer" onClick={handleCloseTdX}>
+                      <i className="fa-solid fa-xmark text-[white] text-[20px]"></i>
+                    </button>
+                    </div>
+                  </div>
+                  <div className="flex flex-col gap-[7px]">
+                    <p className="text-[#7D899C] font-semibold">Description</p>
+                    <p className="text-white text-[14px]">{task.t_desc}</p>
+                  </div>
+                  <div className="flex flex-col gap-[17px]">
+                    <p className="text-[#7D899C] font-semibold">Subtasks (0 of {task.stasks.length})</p>
+                    <ul className="flex flex-col gap-[8px]">
+                      {task.stasks.map((st) => (
+                        <label
+                          key={st.id}
+                          htmlFor={`sub-${st.id}`}
+                          className="bg-[#21212C] rounded-[8px]
+                        flex items-center gap-[14px] py-[10px] px-[18px] text-white font-bold"
+                        >
+                          <input
+                            type="checkbox"
+                            name={`sub-${st.id}`}
+                            id={`sub-${st.id}`}
+                            className="accent-[#6660C3] w-[18px] h-[18px] text-[3px] peer"
+                          />
+                          <li className="peer-checked:text-[#7D899C] peer-checked:line-through">{st.sname}</li>
+                        </label>
+                      ))}
+                    </ul>
+                  </div>
+                  <div className="flex items-center justify-between">
+                  <div className="w-[80%] flex flex-col gap-[10px] relative">
+                    <label
+                      htmlFor="statusopt"
+                      className="text-[white] text-[14px] font-semibold"
+                    >
+                      Change Status
+                    </label>
+                    <Listbox
+                      value={selectedColumn}
+                      onChange={setSelectedColumn}
+                    >
+                      <Listbox.Button
+                        className="w-[85%] border border-[#414552] focus:border-[#6660C3]
+                          rounded-lg p-3 text-left outline-none flex items-center justify-between text-[#6660C3]"
+                      >
+                        <span>{selectedColumn?.name}</span>
+                        <i className="fa-solid fa-angle-down text-[#6660C3]"></i>
+                      </Listbox.Button>
+                      <Listbox.Options className="absolute w-[85%] top-[75px] bg-[#272738] border border-gray-400 shadow-lg outline-none z-50">
+                        {editableBoard.columns.map((c) => (
+                          <Listbox.Option
+                            key={c.id}
+                            value={c}
+                            className="px-[17px] py-[5px] hover:bg-blue-600 text-[white] text-[14px]"
+                          >
+                            {c?.name}
+                          </Listbox.Option>
+                        ))}
+                      </Listbox.Options>
+                    </Listbox>
+                  </div>
+                  <button className="bg-[#25AC00] text-[white] mt-[32px] px-[15px] py-[10px]
+                  rounded-[8px] flex items-center gap-[7px] cursor-pointer custom-shadow2">
+                    <i className="fa-solid fa-check"></i>
+                    <span className="font-semibold">Apply</span>
+                  </button>
+                  </div>
+                </div>
+              ))
+            )}
+          </div>
+        ))}
+    </div>
+  );
+};
+
+export default TaskDetail;
