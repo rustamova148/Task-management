@@ -9,8 +9,11 @@ import Editboardmodal from "../components/Editboardmodal";
 import Infomodal from "../components/Infomodal";
 import Addnewtaskmodal from "../components/Addnewtaskmodal";
 import TaskDetail from "../components/TaskDetail";
+import Etmodal from "../components/Etmodal";
+import Dltmodal from "../components/Dltmodal";
 
 const Dashboard = () => {
+  const [selectedTaskId, setSelectedTaskId] = useState(null);
   const [cnb, setCnb] = useState(false);
   const [dlb, setDlb] = useState(false);
   const [anc, setAnc] = useState(false);
@@ -18,6 +21,8 @@ const Dashboard = () => {
   const [inf, setInf] = useState(false);
   const [ant, setAnt] = useState(false);
   const [td, setTd] = useState(false);
+  const [et, setEt] = useState(false);
+  const [dlt, setDlt] = useState(false);
   const [activeBoardId, setActiveBoardId] = useState(null);
   const [activeBoardName, setActiveBoardName] = useState("");
   const [boards, setBoards] = useState([]);
@@ -26,6 +31,7 @@ const Dashboard = () => {
   const [columnId, setColumnId] = useState(4);
   const [boardId, setBoardId] = useState(1);
   const [pointsToggle, setPointsToggle] = useState(false);
+  const [pointsToggle2, setPointsToggle2] = useState(false);
   const [prfToggle, setPrfToggle] = useState(false);
   const [selectedColumn, setSelectedColumn] = useState("");
   const [taskname, setTaskname] = useState("");
@@ -34,6 +40,7 @@ const Dashboard = () => {
     { id: uuidv4(), sname: "", checked: false },
     { id: uuidv4(), sname: "", checked: false },
   ]);
+
 
   const handleAddStask = () => {
     setSubinp((prev) => [...prev, { id: uuidv4(), sname: "" }]);
@@ -210,6 +217,9 @@ const Dashboard = () => {
     setPointsToggle(false);
   };
 
+  const handleDeletet = (taskId) => {
+  console.log(taskId);
+  }
   const handleProfileBox = () => {
     setPrfToggle((prevState) => !prevState);
     setPointsToggle(false);
@@ -219,7 +229,9 @@ const Dashboard = () => {
     setPointsToggle((prevState) => !prevState);
     setPrfToggle(false);
   };
-
+  const handlePointsBox2 = () => {
+    setPointsToggle2((prevState) => !prevState);
+  };
   const handleShowCnb = () => {
     setCnb(true);
   };
@@ -241,6 +253,15 @@ const Dashboard = () => {
   const handleShowTd = () => {
     setTd(true);
   };
+  const handleShowEt = () => {
+    setTd(false);
+    setEt(true);
+  }
+  const handleShowDlt = (id) => {
+    setSelectedTaskId(id);
+    setTd(false);
+    setDlt(true);
+  }
   const handleCloseCnb = (e) => {
     if (e.target === e.currentTarget) {
       setCnb(false);
@@ -251,6 +272,11 @@ const Dashboard = () => {
       setDlb(false);
     }
   };
+  const handleCloseDlt = (e) => {
+    if (e.target === e.currentTarget) {
+      setDlt(false);
+    }
+  }
   const handleCloseAnc = (e) => {
     if (e.target === e.currentTarget) {
       setAnc(false);
@@ -276,6 +302,14 @@ const Dashboard = () => {
       setTd(false);
     }
   };
+  const handleCloseEt = (e) => {
+    if (e.target === e.currentTarget) {
+      setEt(false);
+    }
+  };
+  const handleCloseEtX = () => {
+      setEt(false);
+  };
   const handleCloseTdX = () => {
     setTd(false);
   };
@@ -286,6 +320,9 @@ const Dashboard = () => {
   const handleCloseDlbX = () => {
     setDlb(false);
   };
+  const handleCloseDltX = () => {
+    setDlt(false);
+  }
   const handleCloseAncX = () => {
     setAnc(false);
   };
@@ -446,7 +483,30 @@ const Dashboard = () => {
         editableBoard={editableBoard}
         handleCheck={handleCheck}
         handleApply={handleApply}
+        handlePointsBox2={handlePointsBox2}
+        pointsToggle2={pointsToggle2}
+        handleShowEt={handleShowEt}
+        handleShowDlt={handleShowDlt}
+        handleDeletet={handleDeletet}
       />
+      <Etmodal et={et} subinp={subinp}
+        handleCloseEt={handleCloseEt}
+        handleCloseEtX={handleCloseEtX}
+        editableBoard={editableBoard}
+        selectedColumn={selectedColumn}
+        setSelectedColumn={setSelectedColumn}
+        taskname={taskname}
+        setTaskname={setTaskname}
+        taskdesc={taskdesc}
+        setTaskdesc={setTaskdesc}
+        handleAddStask={handleAddStask}
+        handleStChange={handleStChange}
+        handleDeleteStask={handleDeleteStask}
+        handleAddTask={handleAddTask} />
+        <Dltmodal dlt={dlt} handleCloseDlt={handleCloseDlt}
+        handleCloseDltX={handleCloseDltX} editableBoard={editableBoard} setDlt={setDlt}
+        taskId={selectedTaskId} boards={boards} activeBoardId={activeBoardId} setBoards={setBoards}
+        />
     </div>
   );
 };

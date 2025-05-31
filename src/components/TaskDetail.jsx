@@ -11,14 +11,21 @@ const TaskDetail = ({
   setSelectedColumn,
   editableBoard,
   handleCheck,
-  handleApply
+  handleApply,
+  handlePointsBox2,
+  pointsToggle2,
+  handleShowEt,
+  handleShowDlt,
+  // handleDeletet
 }) => {
+// const handleDeletet = () => {
 
+// }
   return (
     <div
-    className={`cnb-overlay w-full min-h-screen bg-[#00000099] absolute inset-0 z-50
+      className={`cnb-overlay w-full min-h-screen bg-[#00000099] absolute inset-0 z-50
     flex justify-center items-center ${td ? "block" : "hidden"}`}
-    onClick={(e) => handleCloseTd(e)}
+      onClick={(e) => handleCloseTd(e)}
     >
       {boards
         .filter((b) => b.id === activeBoardId)
@@ -36,9 +43,29 @@ const TaskDetail = ({
                       {task.t_name}
                     </p>
                     <div className="flex items-center gap-[19px]">
-                      <button className="cursor-pointer">
+                      <button className="cursor-pointer" onClick={handlePointsBox2}>
                         <i className="fa-solid fa-pen-to-square text-[white] text-[20px]"></i>
                       </button>
+                      <div
+                      className={`points-box z-40 bg-[#2C2C37] prf-btn-box flex justify-between items-center 
+                      border border-[#6660C3] rounded-[10px] absolute right-[450px] top-[160px] w-[130px] 
+                      h-[100px] ${pointsToggle2 ? "block" : "hidden"}`}
+                      >
+                        <ul className="flex flex-col gap-[9px] ms-[10px]">
+                          <li
+                            className="text-[#778FA2] cursor-pointer"
+                            onClick={handleShowEt}
+                          >
+                            Edit Task
+                          </li>
+                          <li
+                            className="text-[#FF0000] cursor-pointer"
+                            onClick={() => handleShowDlt(task.id)}
+                          >
+                            Delete Task
+                          </li>
+                        </ul>
+                      </div>
                       <button
                         className="cursor-pointer"
                         onClick={handleCloseTdX}
@@ -53,34 +80,39 @@ const TaskDetail = ({
                   </div>
                   <div className="flex flex-col gap-[17px]">
                     <p className="text-[#7D899C] font-semibold">
-                      Subtasks ({task.stasks.filter(st => st.checked === true).length} of {task.stasks.length})
+                      Subtasks (
+                      {task.stasks.filter((st) => st.checked === true).length}{" "}
+                      of {task.stasks.length})
                     </p>
                     <ul className="flex flex-col gap-[8px]">
                       {task.stasks.map((st) => (
-                      <li key={st.id} className=" 
-                      flex items-center gap-[14px] bg-[#21212C] rounded-[8px] py-[10px] px-[18px]">
-                        <label
-                          className="text-white font-bold flex items-center gap-[14px]"
+                        <li
+                          key={st.id}
+                          className=" 
+                      flex items-center gap-[14px] bg-[#21212C] rounded-[8px] py-[10px] px-[18px]"
                         >
-                          <input
-                            type="checkbox"
-                            name={`sub-${st.id}`}
-                            checked = {!!st.checked}
-                            onChange={() => {
-                              console.log("clicked", st.id);
-                              handleCheck(task.id, st.id)
-                            }}
-                            className="accent-[#6660C3] w-[18px] h-[18px] text-[3px] peer"
-                          />
-                          <span className="peer-checked:text-[#7D899C] peer-checked:line-through">
-                            {st.sname}
-                          </span>
-                        </label>
-                      </li>
+                          <label className="text-white font-bold flex items-center gap-[14px]">
+                            <input
+                              type="checkbox"
+                              name={`sub-${st.id}`}
+                              checked={!!st.checked}
+                              onChange={() => {
+                                handleCheck(task.id, st.id);
+                              }}
+                              className="accent-[#6660C3] w-[18px] h-[18px] text-[3px] peer"
+                            />
+                            <span className="peer-checked:text-[#7D899C] peer-checked:line-through">
+                              {st.sname}
+                            </span>
+                          </label>
+                        </li>
                       ))}
                     </ul>
                   </div>
-                  <form className="flex items-center justify-between" onSubmit={e=>handleApply(e, task.id)}>
+                  <form
+                    className="flex items-center justify-between"
+                    onSubmit={(e) => handleApply(e, task.id)}
+                  >
                     <div className="w-[80%] flex flex-col gap-[10px] relative">
                       <label
                         htmlFor="statusopt"
@@ -113,8 +145,8 @@ const TaskDetail = ({
                       </Listbox>
                     </div>
                     <button
-                    type="submit"
-                    className="bg-[#25AC00] text-[white] mt-[32px] px-[15px] py-[10px]
+                      type="submit"
+                      className="bg-[#25AC00] text-[white] mt-[32px] px-[15px] py-[10px]
                     rounded-[8px] flex items-center gap-[7px] cursor-pointer custom-shadow2"
                     >
                       <i className="fa-solid fa-check"></i>
