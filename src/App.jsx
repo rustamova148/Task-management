@@ -7,18 +7,18 @@ import ResetPassword from './pages/ResetPassword'
 import Dashboard from './pages/Dashboard'
 
 function App() {
-const [isLogged, setIsLogged] = useState(false);
-
-const email = localStorage.getItem("Email");
-const password = localStorage.getItem("Password");
+const [isLogged, setIsLogged] = useState(() => {
+    const email = localStorage.getItem("Email");
+    const password = localStorage.getItem("Password");
+    return email === "test@kanban.com" && password === "12345678Aa";
+});
 
   return (
     <>
       <Router>
         <Routes>
           <Route path="/" 
-          element={
-            email && password ? <Navigate to="/dashboard" replace /> 
+          element={isLogged ? <Navigate to="/dashboard" replace /> 
             : <Navigate to="/login" />} />
           <Route path="/dashboard" element={isLogged ? <Dashboard /> : <Navigate to="/login" replace />} />
           <Route path="/login" element={<Login setIsLogged={setIsLogged} />} />

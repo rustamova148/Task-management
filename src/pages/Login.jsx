@@ -3,29 +3,31 @@ import loginimg from "../assets/login-image.svg";
 import logo from "../assets/logo.svg";
 import { Link, useNavigate } from "react-router";
 
-const Login = ({setIsLogged}) => {
-const [visibilityp, setVisibilityp] = useState(true);
-const [email, setEmail] = useState("test@kanban.com");
-const [password, setPassword] = useState("12345678Aa");
-const navigate = useNavigate();
+const Login = ({ setIsLogged }) => {
+  const [visibilityp, setVisibilityp] = useState(true);
+  const [email, setEmail] = useState("test@kanban.com");
+  const [password, setPassword] = useState("12345678Aa");
+  const navigate = useNavigate();
 
-const handleVisibility = (e) => {
-e.preventDefault();
-  if(visibilityp){
-    setVisibilityp(false);
-  }else{
-    setVisibilityp(true);
-  }
-}
+  const handleVisibility = (e) => {
+    e.preventDefault();
+    if (visibilityp) {
+      setVisibilityp(false);
+    } else {
+      setVisibilityp(true);
+    }
+  };
 
-const handleSubmit = (e) => {
-e.preventDefault();
-setIsLogged(true);
-localStorage.setItem("Email", email);
-localStorage.setItem("Password", password);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (email === "test@kanban.com" && password === "12345678Aa") {
+      setIsLogged(true);
+      localStorage.setItem("Email", email);
+      localStorage.setItem("Password", password);
 
-navigate('/dashboard', {replace: true});
-}
+      navigate("/dashboard", { replace: true });
+    }
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#21212C]">
@@ -39,49 +41,73 @@ navigate('/dashboard', {replace: true});
         >
           <div className="logo flex items-center gap-[10px] h-[30px] mb-[30px]">
             <img src={logo} className="w-[25px] h-[30px]" alt="logo" />
-            <span
-              className="text-[white] font-semibold text-[20px] lg:text-[30px]"
-            >
+            <span className="text-[white] font-semibold text-[20px] lg:text-[30px]">
               kanban
             </span>
           </div>
-          <p
-            className="text-[white] font-medium text-[16px] lg:text-[20px] mb-[5px]"
-          >
+          <p className="text-[white] font-medium text-[16px] lg:text-[20px] mb-[5px]">
             Welcome to Kanban !
           </p>
           <p className="text-[#6660C3] text-[14px] md:text-[16px] lg:text-[16px]">
             Please sign-in to your account and start the adventure
           </p>
-          <form className="w-[100%] flex flex-col gap-[25px] mt-[30px] relative" 
-          onSubmit={handleSubmit}>
+          <form
+            className="w-[100%] flex flex-col gap-[25px] mt-[30px] relative"
+            onSubmit={handleSubmit}
+          >
             <div className="flex flex-col gap-[5px]">
-            <label htmlFor="emaill" className="text-[#6660C3]">Email</label>
-            <input type="email" id="emaill" autoComplete="off" className="border-2 border-[#6660C3] 
-            rounded-[10px] py-[13px] px-[10px] outline-none text-[#6660C3] text-[20px]" 
-            value={email} onChange={(e) => setEmail(e.target.value)}/>
+              <label htmlFor="emaill" className="text-[#6660C3]">
+                Email
+              </label>
+              <input
+                type="email"
+                id="emaill"
+                autoComplete="off"
+                className="border-2 border-[#6660C3] 
+            rounded-[10px] py-[13px] px-[10px] outline-none text-[#6660C3] text-[20px]"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
             </div>
             <div className="flex flex-col gap-[5px]">
-            <label htmlFor="passwl" className="text-[#6660C3]">Password</label>
-            <input type={visibilityp ? "password" : "text"} id="passl" className="border-2 border-[#6660C3] 
-            rounded-[10px] py-[13px] px-[10px] outline-none text-[#6660C3] text-[20px]" 
-            value={password} onChange={(e) => setPassword(e.target.value)} />
+              <label htmlFor="passwl" className="text-[#6660C3]">
+                Password
+              </label>
+              <input
+                type={visibilityp ? "password" : "text"}
+                id="passl"
+                className="border-2 border-[#6660C3] 
+            rounded-[10px] py-[13px] px-[10px] outline-none text-[#6660C3] text-[20px]"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
             </div>
-            <button className="absolute right-[20px] top-[161px] cursor-pointer"
-            onClick={(e) => handleVisibility(e)}>
-            <i className={`fa-solid text-[#6660C3] ${visibilityp ? 'fa-eye' : 'fa-eye-slash'}`}></i>
+            <button
+              className="absolute right-[20px] top-[161px] cursor-pointer"
+              onClick={(e) => handleVisibility(e)}
+            >
+              <i
+                className={`fa-solid text-[#6660C3] ${
+                  visibilityp ? "fa-eye" : "fa-eye-slash"
+                }`}
+              ></i>
             </button>
-          <Link to="/reset-password">
-            <p className="text-[#6660C3] text-[14px] md:text-[17px] lg:text-[17px]">Forgot Password?</p>
-          </Link>
-          <button type="submit" className="bg-[#6660C3] w-[100%] rounded-[8px] py-[10px] px-[20px]
-          mt-[25px] text-[white] font-semibold cursor-pointer custom-shadow">
-            LOGIN
-          </button>
+            <Link to="/reset-password">
+              <p className="text-[#6660C3] text-[14px] md:text-[17px] lg:text-[17px]">
+                Forgot Password?
+              </p>
+            </Link>
+            <button
+              type="submit"
+              className="bg-[#6660C3] w-[100%] rounded-[8px] py-[10px] px-[20px]
+          mt-[25px] text-[white] font-semibold cursor-pointer custom-shadow"
+            >
+              LOGIN
+            </button>
           </form>
           <div className="mt-[58px] flex items-center justify-center gap-[15px]">
             <span className="text-[white]">New on our platform? </span>
-            <Link to='/register'>
+            <Link to="/register">
               <span className="text-[#6660C3]">Create an account</span>
             </Link>
           </div>
