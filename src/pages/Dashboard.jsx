@@ -14,6 +14,7 @@ import Dltmodal from "../components/Dltmodal";
 
 const Dashboard = () => {
   const [selectedTaskId, setSelectedTaskId] = useState(null);
+  const [selectedTask, setSelectedTask] = useState(null);
   const [cnb, setCnb] = useState(false);
   const [dlb, setDlb] = useState(false);
   const [anc, setAnc] = useState(false);
@@ -41,9 +42,15 @@ const Dashboard = () => {
     { id: uuidv4(), sname: "", checked: false },
   ]);
 
-
   const handleAddStask = () => {
     setSubinp((prev) => [...prev, { id: uuidv4(), sname: "" }]);
+  };
+  const handleAddStask2 = () => {
+  const newStasks = [...selectedTask.stasks, { id: uuidv4(), sname: "" }];
+  setSelectedTask({
+    ...selectedTask,
+    stasks: newStasks,
+  });
   };
 
   const handleStChange = (id, value) => {
@@ -53,10 +60,29 @@ const Dashboard = () => {
     setSubinp(updated);
   };
 
+  const handleStChange2 = (id, value) => {
+    const updated = selectedTask?.stasks?.map((si) =>
+      si.id === id ? { ...si, sname: value } : si
+    );
+    setSelectedTask({
+    ...selectedTask,
+    stasks: updated
+  });
+  };
+
   const handleDeleteStask = (id) => {
     const h = subinp.filter((s) => s.id !== id);
     setSubinp(h);
   };
+  
+  const handleDeleteStask2 = (id) => {
+  if (!selectedTask) return;
+   const updated = selectedTask?.stasks?.filter(st => st.id !== id);
+   setSelectedTask({
+    ...selectedTask,
+    stasks: updated
+   })
+  }
 
   const handleAddTask = (e) => {
     e.preventDefault();
@@ -98,7 +124,7 @@ const Dashboard = () => {
     e.preventDefault();
 
     const activeBoard = boards.find((b) => b.id === activeBoardId);
-    if (!activeBoard) return; 
+    if (!activeBoard) return;
 
     let taskToMove = null;
 
@@ -216,10 +242,30 @@ const Dashboard = () => {
     setEb(false);
     setPointsToggle(false);
   };
-
-  const handleDeletet = (taskId) => {
-  console.log(taskId);
+  
+  const handleEditTask = (e) => {
+    e.preventDefault();
+    setBoards((prevBoards) =>
+    prevBoards.map((board) => {
+      if (board.id !== activeBoardId) return board;
+      return {
+        ...board,
+        columns: board.columns.map((col) => {
+          return {
+            ...col,
+            tasks: col.tasks.map((task) =>
+              task.id === selectedTask.id ? selectedTask : task
+            ),
+          };
+        }),
+      };
+    })
+  );
+  setEt(false);
   }
+  const handleDeletet = (taskId) => {
+    setSelectedTaskId(taskId);
+  };
   const handleProfileBox = () => {
     setPrfToggle((prevState) => !prevState);
     setPointsToggle(false);
@@ -252,16 +298,29 @@ const Dashboard = () => {
   };
   const handleShowTd = () => {
     setTd(true);
+    setPointsToggle2(false);
   };
-  const handleShowEt = () => {
+  const handleShowEt = (id) => {
+    setSelectedTaskId(id);
     setTd(false);
     setEt(true);
+  };
+  useEffect(() => {
+  const activeBoard = boards.find((b) => b.id === activeBoardId);
+  if (activeBoard && selectedTaskId) {
+    const foundTask = activeBoard.columns
+      .flatMap(col => col.tasks)
+      .find(task => task.id === selectedTaskId);
+    setSelectedTask(foundTask);
+    console.log("foundTask:", foundTask);
   }
+  }, [boards, activeBoardId, selectedTaskId]);
+  
   const handleShowDlt = (id) => {
     setSelectedTaskId(id);
     setTd(false);
     setDlt(true);
-  }
+  };
   const handleCloseCnb = (e) => {
     if (e.target === e.currentTarget) {
       setCnb(false);
@@ -276,7 +335,7 @@ const Dashboard = () => {
     if (e.target === e.currentTarget) {
       setDlt(false);
     }
-  }
+  };
   const handleCloseAnc = (e) => {
     if (e.target === e.currentTarget) {
       setAnc(false);
@@ -308,7 +367,7 @@ const Dashboard = () => {
     }
   };
   const handleCloseEtX = () => {
-      setEt(false);
+    setEt(false);
   };
   const handleCloseTdX = () => {
     setTd(false);
@@ -322,7 +381,7 @@ const Dashboard = () => {
   };
   const handleCloseDltX = () => {
     setDlt(false);
-  }
+  };
   const handleCloseAncX = () => {
     setAnc(false);
   };
@@ -489,7 +548,9 @@ const Dashboard = () => {
         handleShowDlt={handleShowDlt}
         handleDeletet={handleDeletet}
       />
-      <Etmodal et={et} subinp={subinp}
+      <Etmodal
+        et={et}
+        subinp={subinp}
         handleCloseEt={handleCloseEt}
         handleCloseEtX={handleCloseEtX}
         editableBoard={editableBoard}
@@ -499,14 +560,31 @@ const Dashboard = () => {
         setTaskname={setTaskname}
         taskdesc={taskdesc}
         setTaskdesc={setTaskdesc}
-        handleAddStask={handleAddStask}
+        handleAddStask2={handleAddStask2}
         handleStChange={handleStChange}
         handleDeleteStask={handleDeleteStask}
-        handleAddTask={handleAddTask} />
-        <Dltmodal dlt={dlt} handleCloseDlt={handleCloseDlt}
-        handleCloseDltX={handleCloseDltX} editableBoard={editableBoard} setDlt={setDlt}
-        taskId={selectedTaskId} boards={boards} activeBoardId={activeBoardId} setBoards={setBoards}
-        />
+        handleDeleteStask2={handleDeleteStask2 }
+        handleAddTask={handleAddTask}
+        taskId={selectedTaskId}
+        boards={boards}
+        activeBoardId={activeBoardId}
+        setSubinp={setSubinp}
+        selectedTask={selectedTask}
+        setSelectedTask={setSelectedTask}
+        handleStChange2={handleStChange2}
+        handleEditTask={handleEditTask}
+      />
+      <Dltmodal
+        dlt={dlt}
+        handleCloseDlt={handleCloseDlt}
+        handleCloseDltX={handleCloseDltX}
+        editableBoard={editableBoard}
+        setDlt={setDlt}
+        taskId={selectedTaskId}
+        boards={boards}
+        activeBoardId={activeBoardId}
+        setBoards={setBoards}
+      />
     </div>
   );
 };

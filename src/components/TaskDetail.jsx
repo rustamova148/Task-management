@@ -42,19 +42,19 @@ const TaskDetail = ({
                     <p className="text-[white] text-[20px] font-semibold">
                       {task.t_name}
                     </p>
-                    <div className="flex items-center gap-[19px]">
+                    <div className="flex items-center gap-[19px] relative ">
                       <button className="cursor-pointer" onClick={handlePointsBox2}>
                         <i className="fa-solid fa-pen-to-square text-[white] text-[20px]"></i>
                       </button>
                       <div
                       className={`points-box z-40 bg-[#2C2C37] prf-btn-box flex justify-between items-center 
-                      border border-[#6660C3] rounded-[10px] absolute right-[450px] top-[160px] w-[130px] 
+                      border border-[#6660C3] rounded-[10px] absolute right-0 top-[37px] w-[130px] 
                       h-[100px] ${pointsToggle2 ? "block" : "hidden"}`}
                       >
                         <ul className="flex flex-col gap-[9px] ms-[10px]">
                           <li
                             className="text-[#778FA2] cursor-pointer"
-                            onClick={handleShowEt}
+                            onClick={() => handleShowEt(task.id)}
                           >
                             Edit Task
                           </li>

@@ -1,15 +1,15 @@
 import React from "react";
-import { Listbox } from "@headlessui/react";
 
-const Etmodal = ({et, handleCloseEt, handleCloseEtX, editableBoard, selectedColumn,
-setSelectedColumn, taskname, setTaskname, taskdesc, setTaskdesc, handleAddStask, handleStChange,
-handleDeleteStask, subinp, handleAddTask}) => {
+const Etmodal = ({ handleCloseEt,handleCloseEtX, et, selectedTask, handleAddStask2, handleDeleteStask2,
+setSelectedTask, handleStChange2,handleEditTask
+ }) => {
+  console.log(selectedTask);
   return (
     <div
       className={`cnb-overlay w-full min-h-screen bg-[#00000099] absolute inset-0 z-50
-    flex justify-center items-center ${
-      et ? "block" : "hidden"
-    } overflow-hidden`}
+      flex justify-center items-center ${
+        et ? "block" : "hidden"
+      } overflow-hidden`}
       onClick={(e) => handleCloseEt(e)}
     >
       <div
@@ -28,7 +28,7 @@ handleDeleteStask, subinp, handleAddTask}) => {
         </div>
         <form
           className="flex flex-col gap-[16px]"
-          onSubmit={(e) => handleAddTask(e)}
+          onSubmit={(e) => handleEditTask(e)}
         >
           <div className="flex flex-col gap-[10px]">
             <label htmlFor="ant" className="text-[white] text-[14px]">
@@ -40,10 +40,14 @@ handleDeleteStask, subinp, handleAddTask}) => {
               id="ant"
               autoComplete="off"
               placeholder="e.g.Take coffee break"
-              value={taskname}
+              value={selectedTask?.t_name}
               className="border border-[#414552] focus:border-[#6660C3] rounded-[10px] py-[8px] 
-                      px-[18px] outline-none caret-[#6660C3] text-[#6660C3] w-full placeholder-[#414552]"
-              onChange={(e) => setTaskname(e.target.value)}
+              px-[18px] outline-none caret-[#6660C3] text-[#6660C3] w-full placeholder-[#414552]"
+              onChange={(e) =>
+              setSelectedTask((prev) => ({
+              ...prev,
+              t_name: e.target.value,
+              }))}
             />
           </div>
           <div className="flex flex-col gap-[10px]">
@@ -56,35 +60,39 @@ handleDeleteStask, subinp, handleAddTask}) => {
               id="ant2"
               autoComplete="off"
               placeholder="e.g.It's always good to take break. This 15 minute break will recharge the batteries a little"
-              value={taskdesc}
+              value={selectedTask?.t_desc}
               className="border border-[#414552] focus:border-[#6660C3] rounded-[10px] pt-[20px] pb-[50px] px-[18px] outline-none
-                      caret-[#6660C3] placeholder-[#414552] text-[#6660C3] w-full overflow-hidden resize-none"
-              onChange={(e) => setTaskdesc(e.target.value)}
+              caret-[#6660C3] placeholder-[#414552] text-[#6660C3] w-full overflow-hidden resize-none"
+              onChange={(e) =>
+              setSelectedTask((prev) => ({
+              ...prev,
+              t_desc: e.target.value,
+              }))}
             />
           </div>
           <div className="flex flex-col gap-[10px]">
             <label htmlFor="ant3" className="text-[white] text-[14px]">
               Subtasks
             </label>
-            {subinp.map((si) => (
+            {selectedTask?.stasks?.map((si) => (
               <div key={si.id} className="flex items-center gap-[15px]">
                 <input
                   type="text"
                   name={`stask-${si.id}`}
                   id={`stask-${si.id}`}
                   autoComplete="off"
-                  value={si?.sname}
+                  value={si?.sname || ""}
                   className="border border-[#414552] focus:border-[#6660C3] rounded-[10px] py-[8px] px-[18px] outline-none
-                      caret-[#6660C3] placeholder-[#414552] text-[#6660C3] w-full"
+                  caret-[#6660C3] placeholder-[#414552] text-[#6660C3] w-full"
                   onChange={(e) => {
                     console.log("Changing:", si.id, e.target.value);
-                    handleStChange(si.id, e.target.value);
+                    handleStChange2(si.id, e.target.value);
                   }}
                 />
                 <button
                   type="button"
                   className="cursor-pointer"
-                  onClick={() => handleDeleteStask(si.id)}
+                  onClick={() => handleDeleteStask2(si.id)}
                 >
                   <i className="fa-solid fa-xmark text-[#6660C3] text-[20px]"></i>
                 </button>
@@ -92,46 +100,19 @@ handleDeleteStask, subinp, handleAddTask}) => {
             ))}
             <button
               className="bg-[white] text-[#6660C3] rounded-[10px] w-full py-[10px] flex mt-[27px]
-                      gap-[10px] justify-center items-center font-semibold cursor-pointer custom-shadow2"
+              gap-[10px] justify-center items-center font-semibold cursor-pointer custom-shadow2"
               type="button"
-              onClick={handleAddStask}
+              onClick={handleAddStask2}
             >
               <i className="fa-solid fa-plus"></i>
               <span>Add New Subtask</span>
             </button>
           </div>
-          <div className="flex flex-col gap-[10px] relative">
-            <label htmlFor="statusopt" className="text-[white] text-[14px]">
-              Add Status
-            </label>
-            <Listbox value={selectedColumn} onChange={setSelectedColumn}>
-              <Listbox.Button
-                className="w-full border border-[#414552] focus:border-[#6660C3]
-                      rounded-lg p-3 text-left outline-none flex items-center justify-between text-[#6660C3]"
-              >
-                <span>{selectedColumn?.name}</span>
-                <i className="fa-solid fa-angle-down text-[#6660C3]"></i>
-              </Listbox.Button>
-              <Listbox.Options className="absolute w-full bottom-[42px] bg-[#272738] border border-gray-400 shadow-lg outline-none z-50">
-                {editableBoard.columns.map((c) => (
-                  <Listbox.Option
-                    key={c.id}
-                    value={c}
-                    className="px-[17px] py-[5px] hover:bg-blue-600 text-[white] text-[14px]"
-                  >
-                    {c?.name}
-                  </Listbox.Option>
-                ))}
-              </Listbox.Options>
-            </Listbox>
-          </div>
           <button
-            className="bg-[#6660C3] text-[white] rounded-[10px] w-full py-[10px] flex gap-[10px]
-                    justify-center items-center mt-[25px] font-semibold cursor-pointer custom-shadow2"
+            className="bg-[#6660C3] text-[white] rounded-[10px] w-full py-[10px] mt-[25px] font-semibold cursor-pointer custom-shadow2"
             type="submit"
           >
-            <i className="fa-solid fa-plus"></i>
-            <span>Add New Task</span>
+          Save Changes
           </button>
         </form>
       </div>
