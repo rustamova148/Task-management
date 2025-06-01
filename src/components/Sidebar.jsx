@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import Main from "./Main";
 
 const Sidebar = ({handleShowCnb,boards,activeBoardId,handleBoardClick,handleShowAnc,editableBoard,
-selectedColumn, handleShowTd
+selectedColumn, handleShowTd, isDarkMode, handleToggle
 }) => {
   
-  const [checked, setChecked] = useState(true);
+  const [checked, setChecked] = useState(localStorage.getItem("mode") === "dark");
   const [isVisible, setIsVisible] = useState(true);
 
   const handleCheck = () => {
@@ -21,7 +21,7 @@ selectedColumn, handleShowTd
       {isVisible ? (
         <aside
           className="bg-[#2C2C37] w-[100%] sm:w-[50%] md:w-[43%] lg:w-[25%] min-h-[calc(100vh-95px)] flex 
-          flex-col justify-between py-[10px] ps-[19px] z-30"
+          flex-col justify-between py-[10px] ps-[19px] z-30 custom-sb"
         >
           <div className="flex flex-col gap-[24px] ms-[-18px]">
           <p className="text-[#828FA2] font-semibold ms-[15px]">ALL BOARDS ({boards.length})</p>
@@ -60,14 +60,18 @@ selectedColumn, handleShowTd
           <div className="flex flex-col gap-[18px] mt-[15px]">
             <div
               className="w-[88%] bg-[#21212C] flex justify-between py-[12px] px-[25px]
-              rounded-[10px]"
+              rounded-[10px] custom-mode"
             >
               <i className="fa-solid fa-sun text-[#828FA2] text-[20px]"></i>
               <input
                 type="checkbox"
                 id="mode"
-                checked={checked}
-                onChange={handleCheck}
+                checked={isDarkMode === "dark"}
+                onChange={(e) => {
+                  handleCheck(e);
+                  handleToggle(e)
+                }
+              }
               />
               <label
                 htmlFor="mode"
@@ -83,7 +87,7 @@ selectedColumn, handleShowTd
             <button
               className="bg-[#21212C] w-[88%] px-[20px] py-[10px] rounded-[8px] text-[#828FA2]
               flex items-center gap-[10px] justify-center cursor-pointer hover:bg-[white] 
-              hover:text-[#6660C3] transition duration-400"
+              hover:text-[#6660C3] transition duration-400 custom-visb"
               onClick={handleVisibility}
             >
               <i className="fa-solid fa-eye-slash"></i>
@@ -97,7 +101,7 @@ selectedColumn, handleShowTd
         <button
           className="cursor-pointer bg-[#2C2C37] show-btn text-[white] mb-[30px]
       w-[56px] h-[45px] rounded-r-full hover:bg-[white] transition-all duration-500
-      hover:text-[#6660C3] z-50"
+      hover:text-[#6660C3] z-50 custom-visb"
           onClick={handleVisibility}
         >
           <i className="fa-solid fa-eye"></i>

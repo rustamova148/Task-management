@@ -12,7 +12,7 @@ handleDeleteStask, subinp, handleAddTask
     onClick={(e) => handleCloseAnt(e)}
     >
       <div
-      className="dlb-modal w-[500px] max-h-[580px] overflow-y-auto bg-[#2C2C37] rounded-[15px] scrollbar-none 
+      className="custom-modal dlb-modal w-[500px] max-h-[580px] overflow-y-auto bg-[#2C2C37] rounded-[15px] scrollbar-none 
       pt-[17px] px-[20px] pb-[50px] flex flex-col justify-between mx-[17px] sm:mx-0 md:mx-0 lg:mx-0"
       >
         <div className="flex flex-col gap-[30px] mb-[25px]">
@@ -108,7 +108,7 @@ handleDeleteStask, subinp, handleAddTask
                <span>{selectedColumn?.name}</span>
                <i className="fa-solid fa-angle-down text-[#6660C3]"></i>
               </Listbox.Button>
-              <Listbox.Options className="absolute w-full bottom-[42px] bg-[#272738] border border-gray-400 shadow-lg outline-none z-50">
+              <Listbox.Options className="custom-box absolute w-full bottom-[42px] bg-[#272738] border border-gray-400 shadow-lg outline-none z-50">
                 {editableBoard.columns.map(c => (
                 <Listbox.Option key={c.id} value={c} className="px-[17px] py-[5px] hover:bg-blue-600 text-[white] text-[14px]">
                  {c?.name}

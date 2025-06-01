@@ -10,7 +10,7 @@ editableBoard,handleEditedBSubmit,handleDeleteColumn}) => {
       onClick={(e) => handleCloseEb(e)}
     >
       <div
-        className="dlb-modal w-[500px] max-h-[screen] overflow-y-auto pt-[17px]
+        className="custom-modal dlb-modal w-[500px] max-h-[screen] overflow-y-auto pt-[17px]
         bg-[#2C2C37] rounded-[15px] px-[20px] pb-[50px] flex flex-col justify-between mx-[17px] 
         sm:mx-0 md:mx-0 lg:mx-0"
       >

@@ -9,7 +9,7 @@ columnName}) => {
       onClick={(e) => handleCloseAnc(e)}
     >
       <div
-        className="dlb-modal w-[500px] min-h-[260px] bg-[#2C2C37] rounded-[15px] pt-[17px]
+        className="custom-modal dlb-modal w-[500px] min-h-[260px] bg-[#2C2C37] rounded-[15px] pt-[17px]
         px-[20px] pb-[50px] flex flex-col justify-between mx-[17px] sm:mx-0 md:mx-0 lg:mx-0"
       >
         <div className="flex flex-col gap-[30px] mb-[25px]">

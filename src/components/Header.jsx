@@ -15,7 +15,7 @@ handleShowEb,handleShowInf,handleShowAnt}) => {
 
 
   return (
-    <header className="w-full min-h-[95px] bg-[#2C2C37] flex items-center justify-between px-[15px]">
+    <header className="custom-h w-full min-h-[95px] bg-[#2C2C37] flex items-center justify-between px-[15px]">
       <div className="flex items-center gap-[11px]">
         <img src={logo} className="w-[22px] h-[28px]" alt="logo" />
         <p className="text-[white] text-[32px] font-semibold">kanban</p>
@@ -40,7 +40,7 @@ handleShowEb,handleShowInf,handleShowAnt}) => {
           onClick={handlePointsBox}>
             <i className="fa-solid fa-ellipsis-vertical text-[#6660C3] text-[31px]"></i>
           </button>
-          <div className={`points-box z-40 bg-[#2C2C37] prf-btn-box flex justify-between items-center 
+          <div className={`custom-modal points-box z-40 bg-[#2C2C37] prf-btn-box flex justify-between items-center 
           border border-[#6660C3] rounded-[10px] absolute right-[85px] top-[106px] w-[130px] 
           h-[100px] ${pointsToggle ? "block" : "hidden"}`}>
              <ul className="flex flex-col gap-[9px] ms-[10px]">
@@ -57,7 +57,7 @@ handleShowEb,handleShowInf,handleShowAnt}) => {
           NR
         </div>
         <div
-          className={`prfbox z-40 w-[250px] h-[180px] bg-[#2C2C37] prf-btn-box border border-[#6660C3]
+          className={`custom-modal prfbox z-40 w-[250px] h-[180px] bg-[#2C2C37] prf-btn-box border border-[#6660C3]
         rounded-[10px] p-[15px] text-[#6660C3] absolute right-[25px] top-[105px] flex flex-col items-center
         justify-between ${prfToggle ? "block" : "hidden"}`}
           onClick={handleProfileBox}

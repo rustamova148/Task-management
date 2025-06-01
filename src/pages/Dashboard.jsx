@@ -12,7 +12,7 @@ import TaskDetail from "../components/TaskDetail";
 import Etmodal from "../components/Etmodal";
 import Dltmodal from "../components/Dltmodal";
 
-const Dashboard = () => {
+const Dashboard = ({isDarkMode, handleToggle}) => {
   const [selectedTaskId, setSelectedTaskId] = useState(null);
   const [selectedTask, setSelectedTask] = useState(null);
   const [cnb, setCnb] = useState(false);
@@ -45,6 +45,7 @@ const Dashboard = () => {
   const handleAddStask = () => {
     setSubinp((prev) => [...prev, { id: uuidv4(), sname: "" }]);
   };
+
   const handleAddStask2 = () => {
   const newStasks = [...selectedTask.stasks, { id: uuidv4(), sname: "" }];
   setSelectedTask({
@@ -433,7 +434,6 @@ const Dashboard = () => {
     setCnb(false);
     boards.map((b) => console.log(b.columns));
   };
-
   const handleAddColumn = (e) => {
     e.preventDefault();
     const newColumn = { id: columnId, name: columnName, tasks: [] };
@@ -454,7 +454,7 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="bg-[#21212C] min-h-screen relative">
+    <div className="custom-n bg-[#21212C] min-h-screen relative">
       <Header
         boards={boards}
         handleShowDlb={handleShowDlb}
@@ -476,6 +476,8 @@ const Dashboard = () => {
         selectedColumn={selectedColumn}
         handleShowTd={handleShowTd}
         subinp={subinp}
+        isDarkMode={isDarkMode}
+        handleToggle={handleToggle}
       />
       <Cnbmodal
         cnb={cnb}

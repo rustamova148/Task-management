@@ -16,11 +16,7 @@ const TaskDetail = ({
   pointsToggle2,
   handleShowEt,
   handleShowDlt,
-  // handleDeletet
 }) => {
-// const handleDeletet = () => {
-
-// }
   return (
     <div
       className={`cnb-overlay w-full min-h-screen bg-[#00000099] absolute inset-0 z-50
@@ -32,7 +28,7 @@ const TaskDetail = ({
         .map((bn) => (
           <div
             key={bn.id}
-            className="cnb-modal w-[500px] min-h-[290px] bg-[#2C2C37] rounded-[15px] pt-[17px]
+            className="custom-modal cnb-modal w-[500px] min-h-[290px] bg-[#2C2C37] rounded-[15px] pt-[17px]
           px-[20px] pb-[50px] flex flex-col justify-between mx-[17px] sm:mx-0 md:mx-0 lg:mx-0"
           >
             {bn.columns.map((bnc) =>
@@ -47,7 +43,7 @@ const TaskDetail = ({
                         <i className="fa-solid fa-pen-to-square text-[white] text-[20px]"></i>
                       </button>
                       <div
-                      className={`points-box z-40 bg-[#2C2C37] prf-btn-box flex justify-between items-center 
+                      className={`custom-modal points-box z-40 bg-[#2C2C37] prf-btn-box flex justify-between items-center 
                       border border-[#6660C3] rounded-[10px] absolute right-0 top-[37px] w-[130px] 
                       h-[100px] ${pointsToggle2 ? "block" : "hidden"}`}
                       >
@@ -89,7 +85,7 @@ const TaskDetail = ({
                         <li
                           key={st.id}
                           className=" 
-                      flex items-center gap-[14px] bg-[#21212C] rounded-[8px] py-[10px] px-[18px]"
+                        custom-box flex items-center gap-[14px] bg-[#21212C] rounded-[8px] py-[10px] px-[18px]"
                         >
                           <label className="text-white font-bold flex items-center gap-[14px]">
                             <input
@@ -131,7 +127,7 @@ const TaskDetail = ({
                           <span>{selectedColumn?.name}</span>
                           <i className="fa-solid fa-angle-down text-[#6660C3]"></i>
                         </Listbox.Button>
-                        <Listbox.Options className="absolute w-[85%] top-[75px] bg-[#272738] border border-gray-400 shadow-lg outline-none z-50">
+                        <Listbox.Options className="custom-box absolute w-[85%] top-[75px] bg-[#272738] border border-gray-400 shadow-lg outline-none z-50">
                           {editableBoard.columns.map((c) => (
                             <Listbox.Option
                               key={c.id}

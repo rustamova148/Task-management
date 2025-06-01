@@ -15,13 +15,13 @@ e.preventDefault();
   }
 }
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#21212C]">
+    <div className="custom-mode min-h-screen flex items-center justify-center bg-[#21212C]">
       <div
         className="reg-container flex justify-center lg:justify-between items-center
        w-[100%] lg:w-[80%] my-[20px]"
       >
         <div
-          className="reg-box border bg-[#2C2C37] border-none w-[85%] sm:w-[70%] md:w-[60%] lg:w-[48%] min-h-[750px] 
+          className="custom-h reg-box border bg-[#2C2C37] border-none w-[85%] sm:w-[70%] md:w-[60%] lg:w-[48%] min-h-[750px] 
         rounded-[6px] py-[35px] px-[25px] lg:px-[35px]"
         >
           <div className="logo flex items-center gap-[10px] h-[30px] mb-[30px]">

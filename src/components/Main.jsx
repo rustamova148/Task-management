@@ -15,7 +15,7 @@ const Main = ({ activeBoardId, boards, isVisible, handleShowAnc, handleShowTd })
               {isVisible ? '' : <p className="text-[#6660C3] text-[30px] mb-[10px]
               font-semibold">{bn.board}</p>}
               <button className="bg-[#2C2C37] text-[#828FA2] w-[140px] h-[50px] rounded-[10px] flex
-              items-center justify-center gap-[7px] font-semibold cursor-pointer profile-btn 
+              custom-modal items-center justify-center gap-[7px] font-semibold cursor-pointer profile-btn 
               hover:text-[#6660C3]" onClick={handleShowAnc}>
                 <i className="fa-solid fa-plus"></i>
                 <span>New Column</span>

@@ -44,3 +44,28 @@
 .scrollbar-none::-webkit-scrollbar{
     display: none;
 }
+.light .custom-n{
+    background-color: rgb(241, 216, 156);
+}
+.light .custom-sb{
+    background-color: #dfc192;
+}
+.light .custom-h{
+    background-color: #dfc192;
+}
+.light .custom-visb{
+    background-color: #dde5b6;
+    color: #6660C3;
+}
+.light .custom-mode{
+    background-color: #dde5b6;
+}
+.light .custom-visb:hover{
+    background-color: white;
+}
+.light .custom-modal{
+    background-color: #bcc1cc;
+}
+.light .custom-box{
+    background-color: #425783;
+}

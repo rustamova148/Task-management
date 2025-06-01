@@ -5,13 +5,13 @@ import { Link } from "react-router";
 
 const ResetPassword = () => {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#21212C]">
+    <div className="custom-mode min-h-screen flex items-center justify-center bg-[#21212C]">
       <div
         className="rp-container flex justify-center lg:justify-between items-center
        w-[100%] lg:w-[85%] my-[20px]"
       >
         <div
-          className="rp-box border bg-[#2C2C37] border-none min-h-[400px] w-[80%] sm:w-[70%] md:w-[60%] lg:w-[40%]
+          className="custom-h rp-box border bg-[#2C2C37] border-none min-h-[400px] w-[80%] sm:w-[70%] md:w-[60%] lg:w-[40%]
         rounded-[6px] py-[30px] px-[25px] lg:px-[20px]"
         >
           <div className="logo flex items-center gap-[10px] h-[30px] mb-[30px]">

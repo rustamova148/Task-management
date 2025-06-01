@@ -13,7 +13,7 @@ setSelectedTask, handleStChange2,handleEditTask
       onClick={(e) => handleCloseEt(e)}
     >
       <div
-        className="dlb-modal w-[500px] max-h-[580px] overflow-y-auto bg-[#2C2C37] rounded-[15px] scrollbar-none 
+        className="custom-modal dlb-modal w-[500px] max-h-[580px] overflow-y-auto bg-[#2C2C37] rounded-[15px] scrollbar-none 
         pt-[17px] px-[20px] pb-[50px] flex flex-col justify-between mx-[17px] sm:mx-0 md:mx-0 lg:mx-0"
       >
         <div className="flex flex-col gap-[30px] mb-[25px]">
