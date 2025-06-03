@@ -41,6 +41,7 @@ const Dashboard = ({isDarkMode, handleToggle}) => {
     { id: uuidv4(), sname: "", checked: false },
     { id: uuidv4(), sname: "", checked: false },
   ]);
+  const [formApplySubmitted, setFormApplySubmitted] = useState(false);
 
   const handleAddStask = () => {
     setSubinp((prev) => [...prev, { id: uuidv4(), sname: "" }]);
@@ -123,7 +124,10 @@ const Dashboard = ({isDarkMode, handleToggle}) => {
 
   const handleApply = (e, taskId) => {
     e.preventDefault();
-
+    setFormApplySubmitted(true);
+    if (!selectedColumn) {
+    return;
+    }
     const activeBoard = boards.find((b) => b.id === activeBoardId);
     if (!activeBoard) return;
 
@@ -297,7 +301,8 @@ const Dashboard = ({isDarkMode, handleToggle}) => {
   const handleShowAnt = () => {
     setAnt(true);
   };
-  const handleShowTd = () => {
+  const handleShowTd = (id) => {
+    setSelectedTaskId(id);
     setTd(true);
     setPointsToggle2(false);
   };
@@ -535,6 +540,7 @@ const Dashboard = ({isDarkMode, handleToggle}) => {
       />
       <TaskDetail
         td={td}
+        selectedTaskId={selectedTaskId}
         handleCloseTd={handleCloseTd}
         handleCloseTdX={handleCloseTdX}
         boards={boards}
@@ -549,6 +555,7 @@ const Dashboard = ({isDarkMode, handleToggle}) => {
         handleShowEt={handleShowEt}
         handleShowDlt={handleShowDlt}
         handleDeletet={handleDeletet}
+        formApplySubmitted={formApplySubmitted}
       />
       <Etmodal
         et={et}

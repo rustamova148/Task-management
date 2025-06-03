@@ -16,6 +16,8 @@ const TaskDetail = ({
   pointsToggle2,
   handleShowEt,
   handleShowDlt,
+  selectedTaskId,
+  formApplySubmitted
 }) => {
   return (
     <div
@@ -32,8 +34,9 @@ const TaskDetail = ({
           px-[20px] pb-[50px] flex flex-col justify-between mx-[17px] sm:mx-0 md:mx-0 lg:mx-0"
           >
             {bn.columns.map((bnc) =>
-              bnc.tasks.map((task) => (
-                <div key={task.id} className="flex flex-col gap-[25px]">
+              bnc.tasks.filter(task => td && selectedTaskId === task.id).
+              map((task) => (
+               <div key={task.id} className="flex flex-col gap-[25px]">
                   <div className="flex justify-between items-center">
                     <p className="text-[white] text-[20px] font-semibold">
                       {task.t_name}
@@ -85,7 +88,7 @@ const TaskDetail = ({
                         <li
                           key={st.id}
                           className=" 
-                        custom-box flex items-center gap-[14px] bg-[#21212C] rounded-[8px] py-[10px] px-[18px]"
+                          custom-box flex items-center gap-[14px] bg-[#21212C] rounded-[8px] py-[10px] px-[18px]"
                         >
                           <label className="text-white font-bold flex items-center gap-[14px]">
                             <input
@@ -139,6 +142,11 @@ const TaskDetail = ({
                           ))}
                         </Listbox.Options>
                       </Listbox>
+                      {formApplySubmitted && !selectedColumn && (
+                        <p className="text-[red] text-[13px] ml-[10px]">
+                          Can't be empty
+                        </p>
+                      )}
                     </div>
                     <button
                       type="submit"

@@ -45,20 +45,20 @@
     display: none;
 }
 .light .custom-n{
-    background-color: rgb(241, 216, 156);
+    background-color: white;
 }
 .light .custom-sb{
-    background-color: #dfc192;
+    background-color: #ebe5a4;
 }
 .light .custom-h{
-    background-color: #dfc192;
+    background-color: #ebe5a4;
 }
 .light .custom-visb{
-    background-color: #dde5b6;
+    background-color: #bcc97b;
     color: #6660C3;
 }
 .light .custom-mode{
-    background-color: #dde5b6;
+    background-color: #bcc97b;
 }
 .light .custom-visb:hover{
     background-color: white;
